@@ -15,6 +15,11 @@ const newProject = (title, description) => {
     deleteItem(project, toDo)
   }
 
+  const editProject = (newTitle, newDescription) => {
+    if (newTitle) title = newTitle
+    if (newDescription) description = newDescription
+  }
+
   const getTitle = () => returnExisting(title)
   const getDescription = () => returnExisting(description)
 
@@ -22,6 +27,7 @@ const newProject = (title, description) => {
     createToDo,
     readProject,
     deleteToDo,
+    editProject,
     getTitle,
     getDescription,
   }

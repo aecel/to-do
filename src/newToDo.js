@@ -17,6 +17,28 @@ const newToDo = ({
   const getCheckList = () => returnExisting(checkList)
   const getChecked = () => returnExisting(checked)
 
+  const toggleChecked = () => {
+    checked = !checked
+  }
+
+  const editToDo = ({
+    newTitle,
+    newDescription,
+    newDueDate,
+    newPriority,
+    newNotes,
+    newCheckList,
+    newChecked,
+  }) => {
+    if (newTitle) title = newTitle
+    if (newDescription) description = newDescription
+    if (newDueDate) dueDate = newDueDate
+    if (newPriority) priority = newPriority
+    if (newNotes) notes = newNotes
+    if (newCheckList) checkList = newCheckList
+    if (newChecked !== null && newChecked !== undefined) checked = newChecked
+  }
+
   return {
     getTitle,
     getDescription,
@@ -25,6 +47,8 @@ const newToDo = ({
     getNotes,
     getCheckList,
     getChecked,
+    toggleChecked,
+    editToDo,
   }
 }
 

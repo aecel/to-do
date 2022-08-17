@@ -6,18 +6,45 @@ import newToDo from "./newToDo.js"
 import newCheckList from "./newCheckList.js"
 import newCheckListEntry from "./newCheckListEntry.js"
 
+// List all project titles
+const listAllProjects = (projectList) => {
+  return projectList.readProjectList().map((project) => {
+    return project.getTitle()
+  })
+}
+
+// List all to-do titles and due dates
+const listToDos = (project) => {
+  return project.readProject().map((toDo) => {
+    return [toDo.getTitle(), toDo.getDueDate()]
+  })
+}
+
+// List all checklist entry texts and checked-s
+const listCheckList = (toDo) => {
+  return toDo
+    .getCheckList()
+    .readCheckList()
+    .map((item) => {
+      return [item.getText(), item.getChecked()]
+    })
+}
+
 const myToDoApp = newProjectList()
 const myProject = newProject(
-  "Title: My Life",
+  "Title: My Life (Project)",
   "Description: It's in shambles. Send help."
 )
 
 myToDoApp.createProject(myProject)
 
+const anotherProj = newProject("Halp (Project)", "Send halp")
+myToDoApp.createProject(anotherProj)
+
 const myCheckList = newCheckList()
 
 const toDoTest = newToDo({
-  title: "Change my whole life",
+  title: "Change my whole life (To-Do)",
   description: "Please help me",
   dueDate: "1995-05-03",
   priority: "High",
@@ -33,30 +60,7 @@ myCheckList.addToCheckList(
   newCheckListEntry({ text: "Brush teeth", checked: true })
 )
 
-console.log(
-  toDoTest
-    .getCheckList()
-    .readCheckList()
-    .map((text) => {
-      return [text.getText(), text.getChecked()]
-    })
-)
-
-console.log(
-  myToDoApp.readProjectList().map((thing) => {
-    return thing.readProject().map((thing) => {
-      return thing.getTitle()
-    })
-  })
-)
-
-// const myArray = [
-//   ["hello", "hi"],
-//   ["hi", "how", "are", { 1: "one", 2: "two" }],
-// ]
-
-// console.log(
-//   myArray.map((item) => {
-//     return item
-//   })
-// )
+console.log(listAllProjects(myToDoApp))
+console.log(listToDos(myProject))
+console.log(listCheckList(toDoTest))
+console.log(listToDos(anotherProj))
