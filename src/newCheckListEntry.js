@@ -4,6 +4,8 @@ const newCheckListEntry = ({ text = "", checked = false }) => {
   const getText = () => returnExisting(text)
   const getChecked = () => returnExisting(checked, false)
 
+  const getEntry = () => [text, checked]
+
   const toggleChecked = () => {
     checked = !checked
   }
@@ -16,6 +18,7 @@ const newCheckListEntry = ({ text = "", checked = false }) => {
   return {
     getText,
     getChecked,
+    getEntry,
     toggleChecked,
     updateEntry,
   }

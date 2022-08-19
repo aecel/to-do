@@ -59,6 +59,7 @@ a {
   border-bottom-left-radius: var(--radius);
 
   max-width: 200px;
+  cursor: pointer;
 }
 
 .chosen-tab {
@@ -135,6 +136,33 @@ main {
 .add-todo:active,
 .add-project:active {
   background-color: rgb(181, 130, 217);
+}
+
+.previous {
+  position: relative;
+  float: left;
+  top: 20px;
+  left: 50px;
+  height: 30px;
+  width: 30px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--light-color);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.previous-icon {
+  height: 12px;
+}
+
+.previous:hover {
+  background-color: gray;
+}
+
+.previous:active {
+  background-color: rgb(177, 177, 177);
 }
 
 .docket-title {
@@ -217,6 +245,7 @@ main {
   margin-bottom: 16px;
 }
 
+.checklist-entry,
 .to-do-entry {
   display: flex;
   flex-direction: row;
@@ -228,14 +257,27 @@ main {
   
 }
 
+.checklist-entry {
+  padding-left: 25px;
+}
+
+.checklist-circle,
 .to-do-circle {
   border-radius: 50%;
   border: solid rgb(188, 188, 188) 1px;
   background-color: var(--theme-color);
   height: 0.8rem;
   width: 0.8rem;
+  
+  cursor: pointer;
+  font-size: 0.65rem;
+  /* font-weight: bold; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.checklist-text,
 .to-do-text {
   flex: 1;
   font-size: 0.8rem;
@@ -254,14 +296,17 @@ main {
 .expand-project {
   width: 100%;
   height: unset;
-  min-height: 250px;
+  min-height: 500px;
 }
 
-/* .add-project {
-  display: none;
+/* Uncomment this section when a to-do-circle is clicked? */
+
+.checked-circle {
+  background-color: var(--highlight-color);
 }
 
-
-.add-todo {
-  display: flex;
-} */
+.italic-text {
+  color: gray;
+  /* font-style: italic; */
+  text-decoration: line-through;
+}

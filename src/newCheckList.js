@@ -1,4 +1,5 @@
 import { deleteItem, returnExisting } from "./array.js"
+import newCheckListEntry from "./newCheckListEntry.js"
 
 const newCheckList = () => {
   const checkList = []
@@ -11,6 +12,12 @@ const newCheckList = () => {
     return checkList
   }
 
+  const readCheckListEntries = () => {
+    return checkList.map((item)=>{
+       return item.getEntry() 
+    })
+  }
+
   const deleteFromCheckList = (entry) => {
     deleteItem(checkList, entry)
   }
@@ -18,6 +25,7 @@ const newCheckList = () => {
   return {
     addToCheckList,
     readCheckList,
+    readCheckListEntries,
     deleteFromCheckList,
   }
 }

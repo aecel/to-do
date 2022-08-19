@@ -6,7 +6,7 @@ const newToDo = ({
   dueDate = "",
   priority = "Low",
   notes = "",
-  checkList = [],
+  checkList = false,
   checked = false,
 }) => {
   const getTitle = () => returnExisting(title)
@@ -14,7 +14,7 @@ const newToDo = ({
   const getDueDate = () => returnExisting(dueDate)
   const getPriority = () => returnExisting(priority, "Low")
   const getNotes = () => returnExisting(notes, "")
-  const getCheckList = () => returnExisting(checkList, [])
+  const getCheckList = () => returnExisting(checkList, false)
   const getChecked = () => returnExisting(checked, false)
 
   const toggleChecked = () => {
