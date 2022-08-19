@@ -1,4 +1,4 @@
-import { readArray, deleteItem, returnExisting } from "./array.js"
+import { deleteItem, returnExisting } from "./array.js"
 
 const newCheckList = () => {
   const checkList = []

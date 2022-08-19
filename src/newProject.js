@@ -1,4 +1,4 @@
-import { readArray, deleteItem, returnExisting } from "./array.js"
+import { deleteItem, returnExisting } from "./array.js"
 
 const newProject = (title, description) => {
   const project = []
@@ -15,7 +15,7 @@ const newProject = (title, description) => {
     deleteItem(project, toDo)
   }
 
-  const editProject = (newTitle, newDescription) => {
+  const updateProject = (newTitle, newDescription) => {
     if (newTitle) title = newTitle
     if (newDescription) description = newDescription
   }
@@ -27,7 +27,7 @@ const newProject = (title, description) => {
     createToDo,
     readProject,
     deleteToDo,
-    editProject,
+    updateProject,
     getTitle,
     getDescription,
   }

@@ -2,13 +2,13 @@ import { returnExisting } from "./array.js"
 
 const newCheckListEntry = ({ text = "", checked = false }) => {
   const getText = () => returnExisting(text)
-  const getChecked = () => returnExisting(checked)
+  const getChecked = () => returnExisting(checked, false)
 
   const toggleChecked = () => {
     checked = !checked
   }
 
-  const editEntry = ({ newText, newChecked }) => {
+  const updateEntry = ({ newText, newChecked }) => {
     if (newText) text = newText
     if (newChecked !== null && newChecked !== undefined) checked = newChecked
   }
@@ -17,7 +17,7 @@ const newCheckListEntry = ({ text = "", checked = false }) => {
     getText,
     getChecked,
     toggleChecked,
-    editEntry,
+    updateEntry,
   }
 }
 

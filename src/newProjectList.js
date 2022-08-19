@@ -1,4 +1,4 @@
-import { readArray, deleteItem } from "./array.js"
+import { deleteItem } from "./array.js"
 
 const newProjectList = () => {
   const projects = []

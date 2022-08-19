@@ -1,9 +1,3 @@
-const readArray = (array) => {
-  return array.map((item) => {
-    return item
-  })
-}
-
 const deleteItem = (array, item) => {
   const index = array.indexOf(item)
   if (index != -1) {
@@ -11,10 +5,14 @@ const deleteItem = (array, item) => {
   }
 }
 
-const returnExisting = (item) => {
-  if (item) {
+const returnExisting = (item, defaultItem) => {
+  if (item !== null && item !== undefined) {
     return item
+  } else if (defaultItem !== null && defaultItem !== undefined) {
+    return defaultItem
+  } else {
+    return ""
   }
 }
 
-export { readArray, deleteItem, returnExisting }
+export { deleteItem, returnExisting }

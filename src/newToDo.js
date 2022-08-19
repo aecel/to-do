@@ -1,4 +1,4 @@
-import { readArray, deleteItem, returnExisting } from "./array.js"
+import { deleteItem, returnExisting } from "./array.js"
 
 const newToDo = ({
   title = "",
@@ -12,16 +12,16 @@ const newToDo = ({
   const getTitle = () => returnExisting(title)
   const getDescription = () => returnExisting(description)
   const getDueDate = () => returnExisting(dueDate)
-  const getPriority = () => returnExisting(priority)
-  const getNotes = () => returnExisting(notes)
-  const getCheckList = () => returnExisting(checkList)
-  const getChecked = () => returnExisting(checked)
+  const getPriority = () => returnExisting(priority, "Low")
+  const getNotes = () => returnExisting(notes, "")
+  const getCheckList = () => returnExisting(checkList, [])
+  const getChecked = () => returnExisting(checked, false)
 
   const toggleChecked = () => {
     checked = !checked
   }
 
-  const editToDo = ({
+  const updateToDo = ({
     newTitle,
     newDescription,
     newDueDate,
@@ -48,7 +48,7 @@ const newToDo = ({
     getCheckList,
     getChecked,
     toggleChecked,
-    editToDo,
+    updateToDo,
   }
 }
 
