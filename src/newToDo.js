@@ -1,6 +1,7 @@
 import { deleteItem, returnExisting } from "./array.js"
 
 const newToDo = ({
+  id = -1,
   title = "",
   description = "",
   dueDate = "",
@@ -9,6 +10,7 @@ const newToDo = ({
   checkList = false,
   checked = false,
 }) => {
+  const getId = () => id
   const getTitle = () => returnExisting(title)
   const getDescription = () => returnExisting(description)
   const getDueDate = () => returnExisting(dueDate)
@@ -40,6 +42,7 @@ const newToDo = ({
   }
 
   return {
+    getId,
     getTitle,
     getDescription,
     getDueDate,

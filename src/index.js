@@ -67,6 +67,11 @@ const projectClicked = (chosenProject) => {
   const chosenIndex = chosenProject.dataset.index
   const project = myDocket.readProjectList()[chosenIndex]
 
+  initializeProjectPage(project, chosenIndex)
+}
+
+// Displays project page
+const initializeProjectPage = (project, chosenIndex) => {
   // Clear all project cards then expand the clicked project card
   clearChildren(projectCards)
   appendProjectCard(project)
@@ -79,9 +84,6 @@ const projectClicked = (chosenProject) => {
   showDivQuery(".previous")
   document.querySelector(".project-card").style.cursor = "unset"
 
-  // Add event listener for previous button
-  previousButtonListener()
-
   // For choosing the tab to highlight
   const projectTabList = document.getElementsByClassName("project-tab")
   for (const projectTab of projectTabList) {
@@ -93,7 +95,14 @@ const projectClicked = (chosenProject) => {
   )
   chosenTab.classList.add("chosen-tab")
 
-  checkListListener()
+  // Add event listener for previous button
+  previousButtonListener()
+
+  // Add event listener for checklist circles
+  checkListListener(chosenIndex)
+
+  // Add event listener for to do circles
+  toDoCircleListener(chosenIndex)
 }
 
 // --- Event Listeners for Project Tabs ---
@@ -229,6 +238,7 @@ const getToDoHTML = (project) => {
 
   const toDos = project.readProject()
   for (const toDo of toDos) {
+    const toDoId = toDo.getId()
     let checkMark = ""
     let checkClass = ""
     let italic = ""
@@ -243,8 +253,8 @@ const getToDoHTML = (project) => {
       /*html*/
       `
       <div class="to-do-entry">
-        <div class="to-do-circle ${checkClass}">${checkMark}</div>
-        <div class="to-do-text"  ${italic}>${toDo.getTitle()}</div>
+        <div data-todoid="${toDoId}" class="to-do-circle ${checkClass}">${checkMark}</div>
+        <div class="to-do-text ${italic}">${toDo.getTitle()}</div>
       </div>
       ${getChecklistHTML(toDo)}
       `
@@ -263,6 +273,9 @@ const getChecklistHTML = (toDo) => {
   if (toDo.getCheckList() !== false) {
     const checkList = toDo.getCheckList().readCheckListEntries()
     for (const entry of checkList) {
+      const toDoId = toDo.getId()
+      const checkId = checkList.indexOf(entry)
+
       let checkMark = ""
       let checkClass = ""
       let italic = ""
@@ -277,7 +290,7 @@ const getChecklistHTML = (toDo) => {
         /*html*/
         `
         <div class="checklist-entry">
-          <div id="${checkList.indexOf(entry)}" class="checklist-circle ${checkClass}">${checkMark}</div>
+          <div data-todoid="${toDoId}" data-checkid="${checkId}" class="checklist-circle ${checkClass}">${checkMark}</div>
           <div class="checklist-text ${italic}">${entry[0]}</div>
         </div>
         `
@@ -289,22 +302,55 @@ const getChecklistHTML = (toDo) => {
 
 // --- Event listener for check-circles
 
-const checkListListener = () => {
+const checkListListener = (chosenIndex) => {
   const checkListCircles = document.getElementsByClassName("checklist-circle")
   for (const circle of checkListCircles) {
     circle.addEventListener("click", () => {
-      checkCircleClicked(circle)
+      checkCircleClicked(circle, chosenIndex)
     })
   }
 }
 
-const checkCircleClicked = (circle) => {
+const checkCircleClicked = (circle, chosenIndex) => {
   // const checkList = toDo.getCheckList().readCheckListEntries()
-  const circleIndex = circle.id
-  console.log(circleIndex)
+  const circleIndex = circle.dataset.checkid
+  const toDoId = circle.dataset.todoid
+  console.log("circle index: ", circleIndex, ",  to-do id: ", toDoId)
+  const toDo = myDocket.readProjectList()[chosenIndex].readProject()[toDoId]
+  const toToggle = toDo.getCheckList().readCheckList()[circleIndex]
+  toToggle.toggleChecked()
+  console.log(toToggle.getChecked())
+
+  // circle.classList.toggle("checked-circle")
+  const chosenProject = myDocket.readProjectList()[chosenIndex]
+  initializeProjectPage(chosenProject, chosenIndex)
 }
 
-// --- Setting up test projects, to-dos, checklists, etc --- //
+// --- Event listener for to-do-circles
+
+const toDoCircleListener = (chosenIndex) => {
+  const toDoCircles = document.getElementsByClassName("to-do-circle")
+  for (const circle of toDoCircles) {
+    circle.addEventListener("click", () => {
+      toDoCircleClicked(circle, chosenIndex)
+    })
+  }
+}
+
+const toDoCircleClicked = (circle, chosenIndex) => {
+  const toDoId = circle.dataset.todoid
+  console.log("to-do id: ", toDoId)
+  const toDo = myDocket.readProjectList()[chosenIndex].readProject()[toDoId]
+  // [toDoId]
+  // const toToggle = toDo.gettoDo().readtoDo()[circleIndex]
+  toDo.toggleChecked()
+  console.log(toDo.getChecked())
+
+  const chosenProject = myDocket.readProjectList()[chosenIndex]
+  initializeProjectPage(chosenProject, chosenIndex)
+}
+
+// --- Setting up test projects, to-dos, cheklists, etc --- //
 
 const myDocket = newProjectList()
 const myProject = newProject("My Life", "It's in shambles. Send help.")
@@ -312,12 +358,13 @@ const myProject = newProject("My Life", "It's in shambles. Send help.")
 myDocket.createProject(myProject)
 
 const anotherProj = newProject("Halp", "Send halp")
-anotherProj.createToDo(newToDo({ title: "More todo for wala lang" }))
+anotherProj.createToDo(newToDo({ title: "More todo for wala lang", id: 0 }))
 myDocket.createProject(anotherProj)
 
 const myCheckList = newCheckList()
 
 const toDoTest = newToDo({
+  id: 0,
   title: "Change my whole life",
   description: "Please help me",
   dueDate: "1995-05-03",
@@ -329,14 +376,14 @@ const toDoTest = newToDo({
 
 myProject.createToDo(toDoTest)
 
-const moreToDo = newToDo({ title: "More todo for wala lang" })
+const moreToDo = newToDo({ title: "More todo for wala lang", id: 1 })
 
-myProject.createToDo(moreToDo)
-myProject.createToDo(moreToDo)
-myProject.createToDo(moreToDo)
-myProject.createToDo(moreToDo)
-myProject.createToDo(moreToDo)
-myProject.createToDo(moreToDo)
+myProject.createToDo(newToDo({ title: "More todo for wala lang", id: 1 }))
+myProject.createToDo(newToDo({ title: "More todo for wala lang", id: 2 }))
+myProject.createToDo(newToDo({ title: "More todo for wala lang", id: 3 }))
+myProject.createToDo(newToDo({ title: "More todo for wala lang", id: 4 }))
+myProject.createToDo(newToDo({ title: "More todo for wala lang", id: 5 }))
+myProject.createToDo(newToDo({ title: "More todo for wala lang", id: 6 }))
 
 myCheckList.addToCheckList(newCheckListEntry({ text: "Get a job" }))
 myCheckList.addToCheckList(newCheckListEntry({ text: "Clean house" }))
