@@ -12,9 +12,11 @@ import newCheckListEntry from "./newCheckListEntry.js"
 import {
   toggleClassDiv,
   toggleClassQuery,
+  toggleClassQueryAll,
   hideDiv,
   hideDivQuery,
   showDivQuery,
+  showDivQueryAll,
   changeTextContent,
   clearChildren,
 } from "./divFunctions.js"
@@ -80,9 +82,12 @@ const initializeProjectPage = (project, chosenIndex) => {
   toggleClassQuery(".project-card", "expand-project")
   hideDivQuery(".add-project")
   showDivQuery(".add-todo")
+  showDivQueryAll(".add-checklist")
   changeTextContent(".docket-title", project.getTitle())
   showDivQuery(".previous")
   document.querySelector(".project-card").style.cursor = "unset"
+  toggleClassQueryAll(".checklist-entry","checklist-entry-inside")
+  toggleClassQueryAll(".to-do-entry","to-do-entry-inside")
 
   // For choosing the tab to highlight
   const projectTabList = document.getElementsByClassName("project-tab")
@@ -242,11 +247,18 @@ const getToDoHTML = (project) => {
     let checkMark = ""
     let checkClass = ""
     let italic = ""
+    let addChecklist = ""
 
     if (toDo.getChecked()) {
       checkMark = "✓"
       checkClass = "checked-circle"
       italic = "italic-text"
+    }
+
+    if (getChecklistHTML(toDo)!="") {
+      addChecklist = `<div class="add-checklist">
+      <img src="./images/plus.svg" class="add-checklist-icon" />
+    </div>`
     }
 
     returnHtml +=
@@ -257,6 +269,8 @@ const getToDoHTML = (project) => {
         <div class="to-do-text ${italic}">${toDo.getTitle()}</div>
       </div>
       ${getChecklistHTML(toDo)}
+
+      ${addChecklist}
       `
   }
 

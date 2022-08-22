@@ -11,6 +11,13 @@ const toggleClassQuery = (querySelect, classToToggle) => {
   div.classList.toggle(classToToggle)
 }
 
+const toggleClassQueryAll = (querySelect, classToToggle) => {
+  const divs = document.querySelectorAll(querySelect)
+  for (const div of divs) {
+    div.classList.toggle(classToToggle)
+  }
+}
+
 const hideDivQuery = (queryOfDiv) => {
   const div = document.querySelector(queryOfDiv)
   div.style.display = "none"
@@ -29,6 +36,20 @@ const showDivQuery = (queryOfDiv, disp) => {
   }
 }
 
+const showDivQueryAll = (queryOfDiv, disp) => {
+  const divs = document.querySelectorAll(queryOfDiv)
+
+  if (disp) {
+    for (const div of divs) {
+      div.style.display = disp
+    }
+  } else {
+    for (const div of divs) {
+      div.style.display = "flex"
+    }
+  }
+}
+
 const changeTextContent = (queryOfDiv, textContent) => {
   const div = document.querySelector(queryOfDiv)
   div.textContent = textContent
@@ -41,9 +62,11 @@ const clearChildren = (parent) => {
 export {
   toggleClassDiv,
   toggleClassQuery,
+  toggleClassQueryAll,
   hideDiv,
   hideDivQuery,
   showDivQuery,
+  showDivQueryAll,
   changeTextContent,
   clearChildren,
 }
