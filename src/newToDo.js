@@ -1,7 +1,6 @@
 import { deleteItem, returnExisting } from "./array.js"
 
 const newToDo = ({
-  id = -1,
   title = "",
   description = "",
   dueDate = "",
@@ -10,6 +9,9 @@ const newToDo = ({
   checkList = false,
   checked = false,
 }) => {
+  let id
+  let project
+
   const getId = () => id
   const getTitle = () => returnExisting(title)
   const getDescription = () => returnExisting(description)
@@ -19,6 +21,15 @@ const newToDo = ({
   const getCheckList = () => returnExisting(checkList, false)
   const getChecked = () => returnExisting(checked, false)
 
+  const setProject = (value) => {
+    project = value
+  }
+
+  const getProject = () => project
+
+  const setId = (value) => {
+    id = value
+  }
   const toggleChecked = () => {
     checked = !checked
   }
@@ -52,6 +63,9 @@ const newToDo = ({
     getChecked,
     toggleChecked,
     updateToDo,
+    setId,
+    setProject,
+    getProject,
   }
 }
 

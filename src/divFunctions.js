@@ -11,6 +11,7 @@ const toggleClassQuery = (querySelect, classToToggle) => {
   div.classList.toggle(classToToggle)
 }
 
+// Toggle class with query selector all
 const toggleClassQueryAll = (querySelect, classToToggle) => {
   const divs = document.querySelectorAll(querySelect)
   for (const div of divs) {
