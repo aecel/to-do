@@ -1,12 +1,14 @@
-/* Given this html: */
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
-/*
-<div class="modal">
-  <div class="modal-content">
-    <span class="close-modal">&times;</span>
-  </div>
-</div>
-*/
+:root {
+  font-family: "Lato", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+  --radius: 15px;
+  --shadow: 5px 5px 5px rgba(0, 0, 0, 0.167);
+  --theme-color: rgb(34, 34, 34);
+  --light-color: rgb(80, 80, 80);
+  --highlight-color: rgb(106, 46, 150);
+}
 
 /* The Modal (background) */
 .modal {
@@ -46,4 +48,49 @@
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.modal-text {
+  margin: 10px;
+}
+
+.choices-delete-todo {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 7px;
+}
+
+.yes-delete-todo,
+.no-delete-todo {
+  margin-right: 10px;
+  margin-top: 30px;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  /* box-shadow: var(--shadow); */
+}
+
+.yes-delete-todo {
+  background-color: rgb(127, 33, 33);
+}
+
+.no-delete-todo {
+  background-color: rgb(85, 85, 85);
+}
+
+.yes-delete-todo:hover {
+  background-color: rgb(186, 87, 87);
+}
+
+.yes-delete-todo:active {
+  background-color: rgb(236, 154, 154);
+}
+
+.no-delete-todo:hover {
+  background-color: rgb(121, 121, 121);
+}
+
+.no-delete-todo:active {
+  background-color: rgb(121, 121, 121);
 }

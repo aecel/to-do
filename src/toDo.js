@@ -61,6 +61,7 @@ const getToDoHTML = (project) => {
     returnHtml +=
       /*html*/
       `
+        <div data-todoid="${toDoId}" class="to-do-container">
           <div class="to-do-entry">
             <div data-todoid="${toDoId}" class="to-do-circle ${checkClass}">${checkMark}</div>
             <div class="to-do-text ${italic}">${toDo.getTitle()}</div>
@@ -74,6 +75,7 @@ const getToDoHTML = (project) => {
           ${getChecklistHTML(toDo)}
     
           ${addChecklist}
+        </div>
           `
   }
 
