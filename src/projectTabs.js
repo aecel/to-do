@@ -34,7 +34,7 @@ const projectTabListeners = (projectList) => {
         previousButtonClicked(projectList.readProjectList()[0])
       } else {
         const projectId = projectTab.dataset.index
-        initializeProjectPage(projectList.readProjectList()[projectId])
+        initializeProjectPage(projectList.getProjectById(projectId))
       }
     })
   }

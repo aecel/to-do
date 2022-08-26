@@ -36,7 +36,7 @@ a {
   border-bottom-right-radius: var(--radius);
   border-top-right-radius: var(--radius);
   box-shadow: var(--shadow);
-  z-index: 8;
+  z-index: 1;
   gap: 5px;
   padding-top: 5px;
   padding-left: 5px;
@@ -91,6 +91,8 @@ main {
   position: relative;
 }
 
+.delete-checklist,
+.edit-checklist,
 .delete-todo,
 .edit-todo,
 .add-checklist,
@@ -104,12 +106,14 @@ main {
   justify-content: center;
   align-items: center;
   box-shadow: var(--shadow);
-  position: fixed;
   bottom: 60px;
   right: 60px;
   cursor: pointer;
+  position: fixed;
 }
 
+.delete-checklist,
+.edit-checklist,
 .delete-todo,
 .edit-todo,
 .add-checklist,
@@ -119,7 +123,6 @@ main {
   display: none;
   bottom: 0;
   left: 8px;
-  z-index: 9;
   /* top: 110px; */
   position: relative;
   margin-top: 5px;
@@ -132,15 +135,21 @@ main {
   margin-left: 25px;
 }
 
+.delete-checklist,
+.edit-checklist,
+.add-checklist,
 .delete-todo,
 .edit-todo {
   background-color: var(--light-color);
 }
 
+.delete-checklist,
 .delete-todo {
   margin-right: 15px;
 }
 
+.edit-checklist-icon,
+.delete-checklist-icon,
 .delete-todo-icon,
 .edit-todo-icon,
 .add-checklist-icon,
@@ -152,23 +161,28 @@ main {
   height: 27px;
 }
 
+.delete-checklist:hover,
+.edit-checklist:hover,
+.add-checklist:hover,
 .delete-todo:hover,
 .edit-todo:hover {
   background-color: gray;
 }
 
-.add-checklist:hover,
 .add-todo:hover,
 .add-project:hover {
   background-color: rgb(142, 83, 184);
 }
 
+.delete-checklist:active,
+.edit-checklist:active,
+.add-checklist:active,
 .delete-todo:active,
 .edit-todo:active {
   background-color: rgb(177, 177, 177);
 }
 
-.add-checklist:active,
+
 .add-todo:active,
 .add-project:active {
   background-color: rgb(181, 130, 217);
@@ -290,7 +304,7 @@ main {
 .to-do-entry-inside:hover {
   background-color: rgb(43, 43, 43);
   border-radius: 20px;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .checklist-entry {

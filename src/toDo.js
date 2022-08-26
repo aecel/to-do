@@ -14,7 +14,7 @@ const toDoCircleListener = (project) => {
 const toDoCircleClicked = (circle, project) => {
   const toDoId = circle.dataset.todoid
   console.log("to-do id: ", toDoId)
-  const toDo = project.readProject()[toDoId]
+  const toDo = project.getToDoById(toDoId)
   // [toDoId]
   // const toToggle = toDo.gettoDo().readtoDo()[circleIndex]
   toDo.toggleChecked()
@@ -53,7 +53,7 @@ const getToDoHTML = (project) => {
         /* html */
         `
             <div class="add-checklist">
-              <img src="./images/plus.svg" class="add-checklist-icon" />
+              <img src="./images/plus-checklist.svg" class="add-checklist-icon" />
             </div>
             `
     }

@@ -22,8 +22,7 @@ const refreshProjectCards = (projectList) => {
   const projectCards = document.querySelector(".project-cards")
   clearChildren(projectCards)
 
-  for (const index in projectList.readProjectList()) {
-    const project = projectList.readProjectList()[index]
+  for (const project of projectList.readProjectList()) {
     appendProjectCard(project, false)
   }
 
@@ -44,7 +43,7 @@ const projectCardListeners = (projectList) => {
   for (const projectCardElement of projectCardList) {
     const projectId = projectCardElement.dataset.index
     projectCardElement.addEventListener("click", () => {
-      initializeProjectPage(projectList.readProjectList()[projectId])
+      initializeProjectPage(projectList.getProjectById(projectId))
     })
   }
 }
@@ -65,6 +64,8 @@ const initializeProjectPage = (project) => {
   showDivQueryAll(".add-checklist")
   showDivQueryAll(".edit-todo")
   showDivQueryAll(".delete-todo")
+  showDivQueryAll(".edit-checklist")
+  showDivQueryAll(".delete-checklist")
   changeTextContent(".docket-title", project.getTitle())
   showDivQuery(".previous")
   document.querySelector(".project-card").style.cursor = "unset"

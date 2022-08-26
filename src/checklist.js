@@ -14,8 +14,8 @@ const checkCircleClicked = (circle, project) => {
   const circleIndex = circle.dataset.checkid
   const toDoId = circle.dataset.todoid
   console.log("circle index: ", circleIndex, ",  to-do id: ", toDoId)
-  const toDo = project.readProject()[toDoId]
-  const toToggle = toDo.getCheckList().readCheckList()[circleIndex]
+  const toDo = project.getToDoById(toDoId)
+  const toToggle = toDo.getCheckList().getChecklistById(circleIndex)
   toToggle.toggleChecked()
   console.log(toToggle.getChecked())
 
@@ -39,16 +39,16 @@ const getChecklistHTML = (toDo) => {
 
   // Check if checklist exists in the todo
   // (false is the default value for .getCheckList() because idk I'm dumb)
-  const checkList = toDo.getCheckList().readCheckListEntries()
+  const checkList = toDo.getCheckList().readCheckList()
   for (const entry of checkList) {
     const toDoId = toDo.getId()
-    const checkId = checkList.indexOf(entry)
+    const checkId = entry.getId()
 
     let checkMark = ""
     let checkClass = ""
     let italic = ""
 
-    if (entry[1]) {
+    if (entry.getChecked()) {
       checkMark = "✓"
       checkClass = "checked-circle"
       italic = "italic-text"
@@ -57,11 +57,17 @@ const getChecklistHTML = (toDo) => {
     html +=
       /*html*/
       `
-          <div class="checklist-entry">
+        <div data-checkid="${checkId}" class="checklist-entry">
           <div data-todoid="${toDoId}" data-checkid="${checkId}" class="checklist-circle ${checkClass}">${checkMark}</div>
-          <div class="checklist-text ${italic}">${entry[0]}</div>
+          <div class="checklist-text ${italic}">${entry.getText()}</div>
+          <div data-todoid="${toDoId}"  data-checkid="${checkId}" class="edit-checklist">
+            <img src="./images/pencil.svg" class="edit-checklist-icon" />
           </div>
-          `
+          <div data-todoid="${toDoId}"  data-checkid="${checkId}" class="delete-checklist">
+            <img src="./images/remove.svg" class="delete-checklist-icon" />
+          </div>
+        </div>
+      `
   }
 
   return html

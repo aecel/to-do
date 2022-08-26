@@ -5,16 +5,27 @@ const newProject = (title, description) => {
 
   let id = null
   let projectList = null
+
+  let nextToDoID = 0
+
   const myself = {}
 
   const createToDo = (toDo) => {
     project.push(toDo)
-    toDo.setId(project.indexOf(toDo))
+    toDo.setId(nextToDoID)
+    nextToDoID++
     toDo.setProject(myself)
   }
 
   const readProject = () => {
     return project
+  }
+
+  const getToDoById = (todoid) => {
+    for (const todo of project) {
+      if (todo.getId() == todoid) return todo
+    }
+    return null
   }
 
   const deleteToDo = (toDo) => {
@@ -50,6 +61,7 @@ const newProject = (title, description) => {
     setId,
     getProjectList,
     setProjectList,
+    getToDoById,
   })
 
   return myself

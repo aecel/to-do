@@ -14,7 +14,7 @@
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 9; /* Sit on top */
+  z-index: 2; /* Sit on top */
   left: 0;
   top: 0;
   width: 100vw; /* Full width */
@@ -54,14 +54,15 @@
   margin: 10px;
 }
 
+.choices-delete-checklist,
 .choices-delete-todo {
   display: flex;
   flex-direction: row-reverse;
   gap: 7px;
 }
 
-.yes-delete-todo,
-.no-delete-todo {
+.yes-button,
+.no-button {
   margin-right: 10px;
   margin-top: 30px;
   padding: 10px 20px;
@@ -71,26 +72,26 @@
   /* box-shadow: var(--shadow); */
 }
 
-.yes-delete-todo {
+.yes-button {
   background-color: rgb(127, 33, 33);
 }
 
-.no-delete-todo {
+.no-button {
   background-color: rgb(85, 85, 85);
 }
 
-.yes-delete-todo:hover {
+.yes-button:hover {
   background-color: rgb(186, 87, 87);
 }
 
-.yes-delete-todo:active {
+.yes-button:active {
   background-color: rgb(236, 154, 154);
 }
 
-.no-delete-todo:hover {
+.no-button:hover {
   background-color: rgb(121, 121, 121);
 }
 
-.no-delete-todo:active {
+.no-button:active {
   background-color: rgb(121, 121, 121);
 }

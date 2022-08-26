@@ -39,14 +39,14 @@ const toDoTest = newToDo({
 
 myProject.createToDo(toDoTest)
 
-const moreToDo = newToDo({ title: "More todo for wala lang" })
+const moreToDo = newToDo({ title: "Do laundry" })
 
-myProject.createToDo(newToDo({ title: "More todo for wala lang" }))
-myProject.createToDo(newToDo({ title: "More todo for wala lang" }))
-myProject.createToDo(newToDo({ title: "More todo for wala lang" }))
-myProject.createToDo(newToDo({ title: "More todo for wala lang" }))
-myProject.createToDo(newToDo({ title: "More todo for wala lang" }))
-myProject.createToDo(newToDo({ title: "More todo for wala lang" }))
+myProject.createToDo(newToDo({ title: "Clean bathroom" }))
+myProject.createToDo(newToDo({ title: "Take a bath" }))
+myProject.createToDo(newToDo({ title: "Drink vitamins" }))
+myProject.createToDo(newToDo({ title: "Vacuum" }))
+myProject.createToDo(newToDo({ title: "Seek cure for mental illness" }))
+myProject.createToDo(newToDo({ title: "Saing" }))
 
 myCheckList.addToCheckList(newCheckListEntry({ text: "Get a job" }))
 myCheckList.addToCheckList(newCheckListEntry({ text: "Clean house" }))
