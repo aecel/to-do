@@ -8,6 +8,7 @@ import {
   showDivQueryAll,
   changeTextContent,
   clearChildren,
+  hideDivQueryAll,
 } from "./divFunctions.js"
 
 import modalFunctions from "./modal.js"
@@ -15,6 +16,7 @@ import modalFunctions from "./modal.js"
 import { checkListListener } from "./checklist.js"
 import { toDoCircleListener, getToDoHTML } from "./toDo.js"
 import addModalListeners from "./addModalListeners.js"
+import { refreshProjectTabs } from "./projectTabs.js"
 
 // Refresh project cards
 
@@ -24,6 +26,7 @@ const refreshProjectCards = (projectList) => {
 
   for (const project of projectList.readProjectList()) {
     appendProjectCard(project, false)
+    
   }
 
   projectCardListeners(projectList)
@@ -34,6 +37,57 @@ const refreshProjectCards = (projectList) => {
     ".add-project",
     ".close-add-project-modal"
   )
+
+  // Modal listener for deleting projects
+  modalFunctions(
+    ".delete-project-modal",
+    ".delete-project",
+    ".close-delete-project-modal",
+    (modal, dataset) => deleteProjectHtml(modal, projectList.getProjectById(dataset.projectid))
+  )
+}
+
+const deleteProjectHtml = (modal, project) => {
+  const modalContent = modal.getElementsByClassName("modal-text")[0]
+
+  const yesButton = modal.getElementsByClassName("yes-button")[0]
+
+  const onYesButtonClicked = () => {
+    // Delete in the UI
+    // const projectContainers = document.getElementsByClassName(
+    //   "project-card-container"
+    // )
+    // for (const projectContainer of projectContainers) {
+    //   if (projectContainer.dataset.projectid == project.getId()) {
+    //     projectContainer.parentElement.removeChild(projectContainer)
+    //     break
+    //   }
+    // }
+
+    const projectList = project.getProjectList()
+    projectList.deleteProject(project)
+
+    refreshProjectCards(projectList)
+    refreshProjectTabs(projectList)
+    // Close modal
+    modal.style.display = "none"
+
+    // Remove Event Listener
+    yesButton.removeEventListener("click", onYesButtonClicked)
+  }
+
+  yesButton.addEventListener("click", onYesButtonClicked)
+
+  const noButton = modal.getElementsByClassName("no-button")[0]
+
+  const onNoButtonClicked = () => {
+    // Close modal
+    modal.style.display = "none"
+
+    noButton.removeEventListener("click", onNoButtonClicked)
+  }
+
+  noButton.addEventListener("click", onNoButtonClicked)
 }
 
 // --- Event Listeners for Project Cards ---
@@ -58,8 +112,10 @@ const initializeProjectPage = (project) => {
   appendProjectCard(project, true)
 
   // For UI, show/hide some buttons/divs
+  toggleClassQuery(".project-card-container", "expand-project")
   toggleClassQuery(".project-card", "expand-project")
   hideDivQuery(".add-project")
+  hideDivQueryAll(".delete-project")
   showDivQuery(".add-todo")
   showDivQueryAll(".add-checklist")
   showDivQueryAll(".edit-todo")
@@ -82,26 +138,30 @@ const initializeProjectPage = (project) => {
     `.project-tab[data-index="${projectId}"]`
   )
   chosenTab.classList.add("chosen-tab")
-
-  
 }
 
 const appendProjectCard = (project, attachListeners) => {
   const html =
     /*html*/
     `
-      <div data-index="${project.getId()}" class="project-card">
-        <div class="color-bar"></div>
-        <div class="project-card-text">
-          <p class="project-title">${project.getTitle()}</p>
-          <p class="project-desc">${project.getDescription()}</p>
-          <div class="line-dash"></div>
-          
-          ${getToDoHTML(project)}
-  
-          <div class="add-todo">
-            <img src="./images/plus.svg" class="add-todo-icon" />
+      <div class="project-card-container">
+        <div data-index="${project.getId()}" class="project-card">
+          <div class="color-bar"></div>
+          <div class="project-card-text">
+            <p class="project-title">${project.getTitle()}</p>
+            <p class="project-desc">${project.getDescription()}</p>
+            <div class="line-dash"></div>
+            
+            ${getToDoHTML(project)}
+    
+            <div class="add-todo">
+              <img src="./images/plus.svg" class="add-todo-icon" />
+            </div>
           </div>
+          
+        </div>
+        <div data-projectid="${project.getId()}" class="delete-project">
+          <img src="./images/remove.svg" class="delete-project-icon" />
         </div>
       </div>
       `

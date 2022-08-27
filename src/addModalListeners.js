@@ -97,8 +97,6 @@ const deleteToDoHtml = (modal, dataset, project) => {
   }
 
   noButton.addEventListener("click", onNoButtonClicked)
-
-  //   modalContent.textContent = `I mishu briney Dataset: ${dataset.todoid}`
 }
 
 const deleteChecklistHtml = (modal, dataset, project) => {

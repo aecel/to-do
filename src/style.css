@@ -182,7 +182,6 @@ main {
   background-color: rgb(177, 177, 177);
 }
 
-
 .add-todo:active,
 .add-project:active {
   background-color: rgb(181, 130, 217);
@@ -239,11 +238,43 @@ main {
   padding: 26px;
 }
 
+.project-card-container {
+  position: relative;
+  
+}
+
 .project-card {
   height: 250px;
   width: 350px;
   display: flex;
   cursor: pointer;
+}
+
+.delete-project {
+  border-radius: 50%;
+  background-color: var(--light-color);
+  height: 23px;
+  width: 23px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--shadow);
+  bottom: 10px;
+  right: -340px;
+  cursor: pointer;
+  position: relative;
+}
+
+.delete-project:hover {
+  background-color: gray;
+}
+
+.delete-project:active {
+  background-color: rgb(177, 177, 177);
+}
+
+.delete-project-icon {
+  height: 10px;
 }
 
 .color-bar {

@@ -24,6 +24,13 @@ const hideDivQuery = (queryOfDiv) => {
   div.style.display = "none"
 }
 
+const hideDivQueryAll = (queryOfDiv) => {
+  const divs = document.querySelectorAll(queryOfDiv)
+  for (const div of divs) {
+    div.style.display = "none"
+  }
+}
+
 const hideDiv = (div) => {
   div.style.display = "none"
 }
@@ -66,6 +73,7 @@ export {
   toggleClassQueryAll,
   hideDiv,
   hideDivQuery,
+  hideDivQueryAll,
   showDivQuery,
   showDivQueryAll,
   changeTextContent,

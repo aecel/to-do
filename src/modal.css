@@ -54,6 +54,7 @@
   margin: 10px;
 }
 
+.choices-delete-project,
 .choices-delete-checklist,
 .choices-delete-todo {
   display: flex;
