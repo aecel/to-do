@@ -331,11 +331,16 @@ main {
   align-items: center;
 }
 
+.checklist-entry-inside:active,
+.to-do-entry-inside:active {
+  background-color: rgb(72, 72, 72);
+}
+
 .checklist-entry-inside:hover,
 .to-do-entry-inside:hover {
   background-color: rgb(43, 43, 43);
   border-radius: 20px;
-  /* cursor: pointer; */
+  cursor: pointer;
 }
 
 .checklist-entry {

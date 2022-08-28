@@ -52,7 +52,7 @@ const getToDoHTML = (project) => {
       addChecklist =
         /* html */
         `
-            <div class="add-checklist">
+            <div data-todoid="${toDoId}" class="add-checklist">
               <img src="./images/plus-checklist.svg" class="add-checklist-icon" />
             </div>
             `
@@ -64,7 +64,7 @@ const getToDoHTML = (project) => {
         <div data-todoid="${toDoId}" class="to-do-container">
           <div class="to-do-entry">
             <div data-todoid="${toDoId}" class="to-do-circle ${checkClass}">${checkMark}</div>
-            <div class="to-do-text ${italic}">${toDo.getTitle()}</div>
+            <div data-todoid="${toDoId}" class="to-do-text ${italic}">${toDo.getTitle()}</div>
             <div data-todoid="${toDoId}" class="edit-todo">
               <img src="./images/pencil.svg" class="edit-todo-icon" />
             </div>

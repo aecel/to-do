@@ -1,4 +1,5 @@
 import modalFunctions from "./modal.js"
+import newCheckListEntry from "./newCheckListEntry.js"
 import { initializeProjectPage } from "./projectCards.js"
 import { removeAllEventListenersAndReturnClone } from "./util.js"
 
@@ -17,6 +18,13 @@ const addModalListeners = (project) => {
     ".add-checklist",
     ".close-add-checklist-modal",
     (modal, dataset) => addChecklistHtml(modal, dataset, project)
+  )
+
+  modalFunctions(
+    ".view-todo-modal",
+    ".to-do-text",
+    ".close-view-todo-modal",
+    (modal, dataset) => viewToDoHtml(modal, dataset, project)
   )
 
   modalFunctions(
@@ -51,6 +59,37 @@ const addChecklistHtml = (modal, dataset, project) => {
   console.log("Hello add todo modal is open mwamwa")
   const modalContent = modal.getElementsByClassName("modal-text")[0]
   modalContent.textContent = `Hello I am add checklist modal`
+  
+  const toDo = project.getToDoById(dataset.todoid)
+  const checkList = toDo.getCheckList()
+  console.log(checkList.readCheckListEntries())
+
+  const testEntry = {text: "Make a checklist entry", checked: true}
+  const newTestEntry = newCheckListEntry(testEntry)
+  checkList.addToCheckList(newTestEntry)
+
+  initializeProjectPage(project)
+
+}
+
+const viewToDoHtml = (modal, dataset, project) => {
+  console.log("Hello view modal is open mwamwa")
+  const modalContent = modal.getElementsByClassName("modal-text")[0]
+
+  const toDo = project.getToDoById(dataset.todoid)
+  console.log(dataset.todoid)
+
+  const title = modalContent.getElementsByClassName("title")[0]
+  const description = modalContent.getElementsByClassName("description")[0]
+  const dueDate = modalContent.getElementsByClassName("due-date")[0]
+  const priority = modalContent.getElementsByClassName("priority")[0]
+  const notes = modalContent.getElementsByClassName("notes")[0]
+
+  title.textContent = `Title: ${toDo.getTitle()}`
+  description.textContent = `Description: ${toDo.getDescription()}`
+  dueDate.textContent = `Due Date: ${toDo.getDueDate()}`
+  priority.textContent = `Priority: ${toDo.getPriority()}`
+  notes.textContent = `Notes: ${toDo.getNotes()}`
 }
 
 const editToDoHtml = (modal, dataset, project) => {

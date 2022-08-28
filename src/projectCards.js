@@ -18,6 +18,10 @@ import { toDoCircleListener, getToDoHTML } from "./toDo.js"
 import addModalListeners from "./addModalListeners.js"
 import { refreshProjectTabs } from "./projectTabs.js"
 
+const addProjectModalListeners = () => {
+  
+}
+
 // Refresh project cards
 
 const refreshProjectCards = (projectList) => {
