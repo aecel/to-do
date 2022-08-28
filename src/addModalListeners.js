@@ -1,6 +1,8 @@
 import modalFunctions from "./modal.js"
+import newCheckList from "./newCheckList.js"
 import newCheckListEntry from "./newCheckListEntry.js"
 import { initializeProjectPage } from "./projectCards.js"
+import newToDo from "./newToDo.js"
 import { removeAllEventListenersAndReturnClone } from "./util.js"
 
 // Add modal listeners for adding to-dos and adding checklists
@@ -35,6 +37,13 @@ const addModalListeners = (project) => {
   )
 
   modalFunctions(
+    ".edit-checklist-modal",
+    ".edit-checklist",
+    ".close-edit-checklist-modal",
+    (modal, dataset) => editChecklistHtml(modal, dataset, project)
+  )
+
+  modalFunctions(
     ".delete-todo-modal",
     ".delete-todo",
     ".close-delete-todo-modal",
@@ -48,36 +57,93 @@ const addModalListeners = (project) => {
     (modal, dataset) => deleteChecklistHtml(modal, dataset, project)
   )
 }
+const closeForm = (modal) => {
+  modal.style.display = "none"
+}
 
 const addToDoHtml = (modal, dataset, project) => {
-  console.log("Hello add todo modal is open mwamwa")
   const modalContent = modal.getElementsByClassName("modal-text")[0]
-  modalContent.textContent = `Hello I am add todo modal`
+  const toDo = project.getToDoById(dataset.todoid)
+
+  const todoForm = document.getElementById("add-todo-form")
+
+  const submitForm = (event) => {
+    event.preventDefault()
+    const form = event.target
+    const formData = new FormData(form)
+
+    const toDoTitle = formData.get("add-todo-title")
+    const toDoDescription = formData.get("add-todo-description")
+    const toDoDueDate = formData.get("add-todo-duedate")
+    const toDoPriority = formData.get("add-todo-priority")
+    const toDoNotes = formData.get("add-todo-notes")
+
+    if (toDoTitle != "") {
+      const toDo = newToDo({
+        title: toDoTitle,
+        description: toDoDescription,
+        dueDate: toDoDueDate,
+        priority: toDoPriority,
+        notes: toDoNotes,
+      })
+
+      project.createToDo(toDo)
+    }
+
+    initializeProjectPage(project)
+    form.reset()
+
+    closeForm(modal)
+
+    todoForm.removeEventListener("submit", submitForm)
+  }
+
+  todoForm.addEventListener("submit", submitForm)
 }
 
 const addChecklistHtml = (modal, dataset, project) => {
-  console.log("Hello add todo modal is open mwamwa")
   const modalContent = modal.getElementsByClassName("modal-text")[0]
-  modalContent.textContent = `Hello I am add checklist modal`
-  
+
   const toDo = project.getToDoById(dataset.todoid)
-  const checkList = toDo.getCheckList()
-  console.log(checkList.readCheckListEntries())
+  let checkList = toDo.getCheckList()
+  if (checkList == false) {
+    checkList = newCheckList()
+  }
 
-  const testEntry = {text: "Make a checklist entry", checked: true}
-  const newTestEntry = newCheckListEntry(testEntry)
-  checkList.addToCheckList(newTestEntry)
+  const checklistForm = document.getElementById("add-checklist-form")
+  console.log(checkList)
 
-  initializeProjectPage(project)
+  const submitForm = (event) => {
+    event.preventDefault()
+    const form = event.target
+    const formData = new FormData(form)
 
+    const checklistEntryText = formData.get("add-checklist-entry")
+
+    if (checklistEntryText != "") {
+      const Entry = { text: `${checklistEntryText}`, checked: false }
+      const newEntry = newCheckListEntry(Entry)
+      console.log(checkList.readCheckList())
+      checkList.addToCheckList(newEntry)
+      console.log(checkList.readCheckListEntries())
+      console.log(toDo.getCheckList())
+    }
+
+    initializeProjectPage(project)
+    form.reset()
+
+    closeForm(modal)
+
+    checklistForm.removeEventListener("submit", submitForm)
+  }
+
+  checklistForm.addEventListener("submit", submitForm)
 }
 
 const viewToDoHtml = (modal, dataset, project) => {
-  console.log("Hello view modal is open mwamwa")
   const modalContent = modal.getElementsByClassName("modal-text")[0]
 
   const toDo = project.getToDoById(dataset.todoid)
-  console.log(dataset.todoid)
 
   const title = modalContent.getElementsByClassName("title")[0]
   const description = modalContent.getElementsByClassName("description")[0]
@@ -93,9 +159,89 @@ const viewToDoHtml = (modal, dataset, project) => {
 }
 
 const editToDoHtml = (modal, dataset, project) => {
-  console.log("Hello edit modal is open mwamwa")
   const modalContent = modal.getElementsByClassName("modal-text")[0]
-  modalContent.textContent = `I mishu briney Dataset: ${dataset.todoid}`
+  const toDo = project.getToDoById(dataset.todoid)
+
+  const todoForm = document.getElementById("edit-todo-form")
+
+  const inputTitle = document.getElementById("edit-todo-title")
+  const inputDescription = document.getElementById("edit-todo-description")
+  const inputDueDate = document.getElementById("edit-todo-duedate")
+  const inputPriority = document.getElementById("edit-todo-priority")
+  const inputNotes = document.getElementById("edit-todo-notes")
+
+  inputTitle.value = `${toDo.getTitle()}`
+  inputDescription.value = `${toDo.getDescription()}`
+  inputDueDate.value = `${toDo.getDueDate()}`
+  inputPriority.value = `${toDo.getPriority()}`
+  inputNotes.value = `${toDo.getNotes()}`
+
+  const submitForm = (event) => {
+    event.preventDefault()
+    const form = event.target
+    const formData = new FormData(form)
+
+    const toDoTitle = formData.get("edit-todo-title")
+    const toDoDescription = formData.get("edit-todo-description")
+    const toDoDueDate = formData.get("edit-todo-duedate")
+    const toDoPriority = formData.get("edit-todo-priority")
+    const toDoNotes = formData.get("edit-todo-notes")
+
+    toDo.updateToDo({
+      newTitle: toDoTitle,
+      newDescription: toDoDescription,
+      newDueDate: toDoDueDate,
+      newPriority: toDoPriority,
+      newNotes: toDoNotes,
+    })
+
+    initializeProjectPage(project)
+    form.reset()
+
+    closeForm(modal)
+
+    todoForm.removeEventListener("submit", submitForm)
+  }
+
+  todoForm.addEventListener("submit", submitForm)
+}
+
+const editChecklistHtml = (modal, dataset, project) => {
+  const modalContent = modal.getElementsByClassName("modal-text")[0]
+
+  const toDo = project.getToDoById(dataset.todoid)
+  const checkList = toDo.getCheckList()
+  const checkListEntry = checkList.getChecklistById(dataset.checkid)
+
+  const checklistForm = document.getElementById("edit-checklist-form")
+  const inputField = document.getElementById("edit-checklist-entry")
+  const placeholderText = `${checkListEntry.getText()}`
+
+  // Change this to inputField.placeholder if you want the
+  // old text to be visible, but not "editable"
+  inputField.value = placeholderText
+  console.log(checkListEntry.getText())
+
+  const submitForm = (event) => {
+    event.preventDefault()
+    const form = event.target
+    const formData = new FormData(form)
+
+    const checklistEntryText = formData.get("edit-checklist-entry")
+
+    if (checklistEntryText != "") {
+      checkListEntry.updateEntry({ newText: `${checklistEntryText}` })
+    }
+
+    initializeProjectPage(project)
+    form.reset()
+
+    closeForm(modal)
+
+    checklistForm.removeEventListener("submit", submitForm)
+  }
+
+  checklistForm.addEventListener("submit", submitForm)
 }
 
 const deleteToDoHtml = (modal, dataset, project) => {
@@ -117,8 +263,7 @@ const deleteToDoHtml = (modal, dataset, project) => {
 
     project.deleteToDo(toDo)
 
-    // Close modal
-    modal.style.display = "none"
+    closeForm(modal)
 
     // Remove Event Listener
     yesButton.removeEventListener("click", onYesButtonClicked)
@@ -129,8 +274,7 @@ const deleteToDoHtml = (modal, dataset, project) => {
   const noButton = modal.getElementsByClassName("no-button")[0]
 
   const onNoButtonClicked = () => {
-    // Close modal
-    modal.style.display = "none"
+    closeForm(modal)
 
     noButton.removeEventListener("click", onNoButtonClicked)
   }
@@ -155,16 +299,19 @@ const deleteChecklistHtml = (modal, dataset, project) => {
     checklist.deleteFromCheckList(checklistEntry)
 
     // Delete in the UI
-    const checklistItems = document.getElementsByClassName("checklist-entry")
-    for (const checklistItem of checklistItems) {
-      if (checklistItem.dataset.checkid == checklistEntry.getId()) {
-        checklistItem.parentElement.removeChild(checklistItem)
-        break
-      }
-    }
+    // This is wrong lol, need to check for which project it's from
 
-    // Close modal
-    modal.style.display = "none"
+    // const checklistItems = document.getElementsByClassName("checklist-entry")
+    // for (const checklistItem of checklistItems) {
+    //   if (checklistItem.dataset.checkid == checklistEntry.getId()) {
+    //     checklistItem.parentElement.removeChild(checklistItem)
+    //     break
+    //   }
+    // }
+
+    initializeProjectPage(project)
+
+    closeForm(modal)
 
     yesButton.removeEventListener("click", onYesButtonClicked)
   }
@@ -174,8 +321,7 @@ const deleteChecklistHtml = (modal, dataset, project) => {
   const noButton = modal.getElementsByClassName("no-button")[0]
 
   const onNoButtonClicked = () => {
-    // Close modal
-    modal.style.display = "none"
+    closeForm(modal)
 
     noButton.removeEventListener("click", onNoButtonClicked)
   }

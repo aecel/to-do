@@ -48,7 +48,8 @@ const getToDoHTML = (project) => {
       italic = "italic-text"
     }
 
-    if (toDo.getCheckList()) {
+    // if (toDo.getCheckList()) 
+    if (true) {
       addChecklist =
         /* html */
         `

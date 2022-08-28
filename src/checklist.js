@@ -1,3 +1,4 @@
+import newCheckList from "./newCheckList.js"
 // --- Event listener for check-circles
 
 const checkListListener = (project) => {
@@ -34,7 +35,9 @@ const getChecklistHTML = (toDo) => {
   let html = ""
 
   if (toDo.getCheckList() === false) {
-    return html
+    // return html
+    const myChecklist = newCheckList()
+    toDo.updateToDo({newCheckList: myChecklist})
   }
 
   // Check if checklist exists in the todo

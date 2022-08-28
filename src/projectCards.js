@@ -17,10 +17,9 @@ import { checkListListener } from "./checklist.js"
 import { toDoCircleListener, getToDoHTML } from "./toDo.js"
 import addModalListeners from "./addModalListeners.js"
 import { refreshProjectTabs } from "./projectTabs.js"
+import newProject from "./newProject.js"
 
-const addProjectModalListeners = () => {
-  
-}
+const addProjectModalListeners = () => {}
 
 // Refresh project cards
 
@@ -30,7 +29,6 @@ const refreshProjectCards = (projectList) => {
 
   for (const project of projectList.readProjectList()) {
     appendProjectCard(project, false)
-    
   }
 
   projectCardListeners(projectList)
@@ -47,8 +45,50 @@ const refreshProjectCards = (projectList) => {
     ".delete-project-modal",
     ".delete-project",
     ".close-delete-project-modal",
-    (modal, dataset) => deleteProjectHtml(modal, projectList.getProjectById(dataset.projectid))
+    (modal, dataset) =>
+      deleteProjectHtml(modal, projectList.getProjectById(dataset.projectid))
   )
+
+  // Modal listener for adding projects
+  modalFunctions(
+    ".add-project-modal",
+    ".add-project",
+    ".close-add-project-modal",
+    (modal, dataset) => addProjectHtml(modal, projectList)
+  )
+}
+
+const addProjectHtml = (modal, projectList) => {
+  const modalContent = modal.getElementsByClassName("modal-text")[0]
+
+  const projectForm = document.getElementById("add-project-form")
+
+  const submitForm = (event) => {
+    event.preventDefault()
+    const formData = new FormData(projectForm)
+
+    const projectTitle = formData.get("add-project-title")
+    const projectDescription = formData.get("add-project-description")
+
+    if (projectTitle != "") {
+      const addThisProject = newProject(projectTitle, projectDescription)
+      projectList.createProject(addThisProject)
+      console.log(addThisProject.getTitle())
+
+      console.log(addThisProject.getDescription())
+    }
+
+    refreshProjectCards(projectList)
+    refreshProjectTabs(projectList)
+    console.log(projectList.getProjectById(2))
+    projectForm.reset()
+
+    modal.style.display = "none"
+
+    projectForm.removeEventListener("submit", submitForm)
+  }
+
+  projectForm.addEventListener("submit", submitForm)
 }
 
 const deleteProjectHtml = (modal, project) => {
