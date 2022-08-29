@@ -33,12 +33,9 @@ const refreshProjectCards = (projectList) => {
 
   projectCardListeners(projectList)
 
-  // Modal listener for adding projects
-  modalFunctions(
-    ".add-project-modal",
-    ".add-project",
-    ".close-add-project-modal"
-  )
+  // Event listener for starting to delete projects
+  const startDeleteProject = document.querySelector(".start-delete-project")
+  startDeleteProject.addEventListener("click", startDeleteClicked)
 
   // Modal listener for deleting projects
   modalFunctions(
@@ -49,6 +46,19 @@ const refreshProjectCards = (projectList) => {
       deleteProjectHtml(modal, projectList.getProjectById(dataset.projectid))
   )
 
+  // Modal listener for editing projects
+  modalFunctions(
+    ".edit-project-modal",
+    ".edit-project",
+    ".close-edit-project-modal",
+    (modal, dataset) =>
+      editProjectHtml(
+        modal,
+        projectList.getProjectById(dataset.projectid),
+        projectList
+      )
+  )
+
   // Modal listener for adding projects
   modalFunctions(
     ".add-project-modal",
@@ -56,6 +66,10 @@ const refreshProjectCards = (projectList) => {
     ".close-add-project-modal",
     (modal, dataset) => addProjectHtml(modal, projectList)
   )
+}
+
+const startDeleteClicked = () => {
+  toggleClassQueryAll(".project-card", "project-card-shake")
 }
 
 const addProjectHtml = (modal, projectList) => {
@@ -73,14 +87,42 @@ const addProjectHtml = (modal, projectList) => {
     if (projectTitle != "") {
       const addThisProject = newProject(projectTitle, projectDescription)
       projectList.createProject(addThisProject)
-      console.log(addThisProject.getTitle())
-
-      console.log(addThisProject.getDescription())
     }
 
     refreshProjectCards(projectList)
     refreshProjectTabs(projectList)
-    console.log(projectList.getProjectById(2))
+    projectForm.reset()
+
+    modal.style.display = "none"
+
+    projectForm.removeEventListener("submit", submitForm)
+  }
+
+  projectForm.addEventListener("submit", submitForm)
+}
+
+const editProjectHtml = (modal, project, projectList) => {
+  const modalContent = modal.getElementsByClassName("modal-text")[0]
+
+  const projectForm = document.getElementById("edit-project-form")
+
+  const submitForm = (event) => {
+    event.preventDefault()
+    const formData = new FormData(projectForm)
+
+    const projectTitle = formData.get("edit-project-title")
+    const projectDescription = formData.get("edit-project-description")
+
+    // if (projectTitle != "") {
+    //   const editThisProject = newProject(projectTitle, projectDescription)
+    //   projectList.createProject(editThisProject)
+    // }
+
+    project.updateProject(projectTitle, projectDescription)
+
+    console.log(projectList)
+    refreshProjectCards(projectList)
+    refreshProjectTabs(projectList)
     projectForm.reset()
 
     modal.style.display = "none"
@@ -97,17 +139,6 @@ const deleteProjectHtml = (modal, project) => {
   const yesButton = modal.getElementsByClassName("yes-button")[0]
 
   const onYesButtonClicked = () => {
-    // Delete in the UI
-    // const projectContainers = document.getElementsByClassName(
-    //   "project-card-container"
-    // )
-    // for (const projectContainer of projectContainers) {
-    //   if (projectContainer.dataset.projectid == project.getId()) {
-    //     projectContainer.parentElement.removeChild(projectContainer)
-    //     break
-    //   }
-    // }
-
     const projectList = project.getProjectList()
     projectList.deleteProject(project)
 
@@ -160,6 +191,7 @@ const initializeProjectPage = (project) => {
   toggleClassQuery(".project-card", "expand-project")
   hideDivQuery(".add-project")
   hideDivQueryAll(".delete-project")
+  hideDivQueryAll(".edit-project")
   showDivQuery(".add-todo")
   showDivQueryAll(".add-checklist")
   showDivQueryAll(".edit-todo")
@@ -170,6 +202,9 @@ const initializeProjectPage = (project) => {
   showDivQuery(".previous")
   document.querySelector(".project-card").style.cursor = "unset"
   toggleClassQueryAll(".checklist-entry", "checklist-entry-inside")
+
+  toggleClassQueryAll(".checklist-circle", "circle-inside")
+  toggleClassQueryAll(".to-do-circle", "circle-inside")
   toggleClassQueryAll(".to-do-entry", "to-do-entry-inside")
 
   // For choosing the tab to highlight
@@ -206,6 +241,9 @@ const appendProjectCard = (project, attachListeners) => {
         </div>
         <div data-projectid="${project.getId()}" class="delete-project">
           <img src="./images/remove.svg" class="delete-project-icon" />
+        </div>
+        <div data-projectid="${project.getId()}" class="edit-project">
+          <img src="./images/pencil.svg" class="edit-project-icon" />
         </div>
       </div>
       `

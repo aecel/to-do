@@ -40,7 +40,7 @@ a {
   gap: 5px;
   padding-top: 5px;
   padding-left: 5px;
-  max-width: 200px;
+  width: 150px;
   box-sizing: border-box;
 }
 
@@ -51,15 +51,53 @@ a {
   align-items: center;
   gap: 13px;
   /* box-shadow: var(--shadow); */
-  min-width: 100px;
+  /* min-width: 100px; */
   background-color: var(--light-color);
   text-overflow: ellipsis;
 
   border-top-left-radius: var(--radius);
   border-bottom-left-radius: var(--radius);
 
-  max-width: 200px;
+  width: 105px;
   cursor: pointer;
+}
+
+.project-tab:hover {
+  animation-name: shorten-width;
+  animation-duration: 200ms;
+  animation-fill-mode: forwards;
+  /* animation-direction: reverse; */
+  animation-timing-function: ease-in;
+}
+
+@keyframes shorten-width {
+  from {
+    margin-left: 0px;
+    width: 105px;
+  }
+  to {
+    margin-left: 20px;
+    width: 85.5px;
+  }
+}
+
+.project-card-shake {
+  animation-name: shakeProjectCard;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-duration: 100ms;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes shakeProjectCard {
+  from {
+    transform: rotate(5 deg);
+  }
+  to {
+    transform: rotate(-2deg);
+    
+  }
 }
 
 .chosen-tab {
@@ -91,6 +129,7 @@ main {
   position: relative;
 }
 
+.start-delete-project,
 .delete-checklist,
 .edit-checklist,
 .delete-todo,
@@ -110,6 +149,15 @@ main {
   right: 60px;
   cursor: pointer;
   position: fixed;
+  
+}
+
+.start-delete-project {
+  background-color: rgb(91, 32, 32);
+  height: 30px;
+  width: 30px;
+  right: 30px;
+  bottom: 120px;
 }
 
 .delete-checklist,
@@ -157,6 +205,10 @@ main {
   height: 10px;
 }
 
+.start-delete-project-icon {
+  height: 15px;
+}
+
 .add-project-icon {
   height: 27px;
 }
@@ -167,11 +219,24 @@ main {
 .delete-todo:hover,
 .edit-todo:hover {
   background-color: gray;
+  animation-name: enlarge-circle;
+  animation-duration: 200ms;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
+.start-delete-project:hover,
 .add-todo:hover,
 .add-project:hover {
   background-color: rgb(142, 83, 184);
+  animation-name: enlarge-circle;
+  animation-duration: 200ms;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.start-delete-project:hover {
+  background-color: rgb(109, 55, 55);
 }
 
 .delete-checklist:active,
@@ -180,6 +245,10 @@ main {
 .delete-todo:active,
 .edit-todo:active {
   background-color: rgb(177, 177, 177);
+}
+
+.start-delete-project:active {
+  background-color: rgb(219, 127, 127);
 }
 
 .add-todo:active,
@@ -208,6 +277,10 @@ main {
 
 .previous:hover {
   background-color: gray;
+  animation-name: enlarge-circle;
+  animation-duration: 200ms;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
 .previous:active {
@@ -250,6 +323,7 @@ main {
   cursor: pointer;
 }
 
+.edit-project,
 .delete-project {
   border-radius: 50%;
   background-color: var(--light-color);
@@ -259,20 +333,42 @@ main {
   justify-content: center;
   align-items: center;
   box-shadow: var(--shadow);
-  bottom: 10px;
-  right: -340px;
+  bottom: 257px;
+  right: 10px;
+  /* right: -340px; */
   cursor: pointer;
   position: relative;
 }
 
-.delete-project:hover {
-  background-color: gray;
+.edit-project {
+  bottom: 280px;
+  right: -340px;
 }
 
+.edit-project:hover,
+.delete-project:hover {
+  background-color: gray;
+  animation-name: enlarge-circle;
+  animation-duration: 200ms;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes enlarge-circle {
+  from {
+    scale: 0.8
+  }
+  to {
+    scale: 1.2
+  }
+}
+
+.edit-project:active,
 .delete-project:active {
   background-color: rgb(177, 177, 177);
 }
 
+.edit-project-icon,
 .delete-project-icon {
   height: 10px;
 }
@@ -361,6 +457,14 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.circle-inside:hover {
+  animation-name: enlarge-circle;
+  animation-duration: 200ms;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
 }
 
 .checklist-text,
