@@ -62,44 +62,6 @@ a {
   cursor: pointer;
 }
 
-.project-tab:hover {
-  animation-name: shorten-width;
-  animation-duration: 200ms;
-  animation-fill-mode: forwards;
-  /* animation-direction: reverse; */
-  animation-timing-function: ease-in;
-}
-
-@keyframes shorten-width {
-  from {
-    margin-left: 0px;
-    width: 105px;
-  }
-  to {
-    margin-left: 20px;
-    width: 85.5px;
-  }
-}
-
-.project-card-shake {
-  animation-name: shakeProjectCard;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  animation-duration: 100ms;
-  animation-fill-mode: forwards;
-  animation-timing-function: ease-in-out;
-}
-
-@keyframes shakeProjectCard {
-  from {
-    transform: rotate(5 deg);
-  }
-  to {
-    transform: rotate(-2deg);
-    
-  }
-}
-
 .chosen-tab {
   background-color: var(--theme-color);
 }
@@ -149,7 +111,6 @@ main {
   right: 60px;
   cursor: pointer;
   position: fixed;
-  
 }
 
 .start-delete-project {
@@ -219,20 +180,11 @@ main {
 .delete-todo:hover,
 .edit-todo:hover {
   background-color: gray;
-  animation-name: enlarge-circle;
-  animation-duration: 200ms;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
 }
 
-.start-delete-project:hover,
 .add-todo:hover,
 .add-project:hover {
   background-color: rgb(142, 83, 184);
-  animation-name: enlarge-circle;
-  animation-duration: 200ms;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
 }
 
 .start-delete-project:hover {
@@ -277,10 +229,6 @@ main {
 
 .previous:hover {
   background-color: gray;
-  animation-name: enlarge-circle;
-  animation-duration: 200ms;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
 }
 
 .previous:active {
@@ -313,7 +261,6 @@ main {
 
 .project-card-container {
   position: relative;
-  
 }
 
 .project-card {
@@ -333,11 +280,20 @@ main {
   justify-content: center;
   align-items: center;
   box-shadow: var(--shadow);
-  bottom: 257px;
-  right: 10px;
+
   /* right: -340px; */
   cursor: pointer;
   position: relative;
+}
+
+.delete-project {
+  bottom: 257px;
+  right: 10px;
+  background-color: rgb(109, 55, 55);
+}
+
+.hide-div {
+  display: none;
 }
 
 .edit-project {
@@ -345,27 +301,20 @@ main {
   right: -340px;
 }
 
-.edit-project:hover,
-.delete-project:hover {
+.edit-project:hover {
   background-color: gray;
-  animation-name: enlarge-circle;
-  animation-duration: 200ms;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
 }
 
-@keyframes enlarge-circle {
-  from {
-    scale: 0.8
-  }
-  to {
-    scale: 1.2
-  }
+.delete-project:hover {
+  background-color: rgb(219, 127, 127);
 }
 
-.edit-project:active,
-.delete-project:active {
+.edit-project:active {
   background-color: rgb(177, 177, 177);
+}
+
+.delete-project:active {
+  background-color: rgb(243, 164, 164);
 }
 
 .edit-project-icon,
@@ -389,7 +338,7 @@ main {
   box-shadow: var(--shadow);
 
   overflow: hidden;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   text-overflow: ellipsis;
 
   flex: 1;
@@ -436,6 +385,9 @@ main {
 .to-do-entry-inside:hover {
   background-color: rgb(43, 43, 43);
   border-radius: 20px;
+}
+
+.to-do-text {
   cursor: pointer;
 }
 
@@ -457,14 +409,6 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.circle-inside:hover {
-  animation-name: enlarge-circle;
-  animation-duration: 200ms;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-timing-function: ease-in-out;
 }
 
 .checklist-text,

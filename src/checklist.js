@@ -14,11 +14,9 @@ const checkCircleClicked = (circle, project) => {
   // const checkList = toDo.getCheckList().readCheckListEntries()
   const circleIndex = circle.dataset.checkid
   const toDoId = circle.dataset.todoid
-  console.log("circle index: ", circleIndex, ",  to-do id: ", toDoId)
   const toDo = project.getToDoById(toDoId)
   const toToggle = toDo.getCheckList().getChecklistById(circleIndex)
   toToggle.toggleChecked()
-  console.log(toToggle.getChecked())
 
   circle.classList.toggle("checked-circle")
   if (circle.textContent == "") {

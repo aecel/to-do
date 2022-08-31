@@ -111,7 +111,6 @@ const addChecklistHtml = (modal, dataset, project) => {
   }
 
   const checklistForm = document.getElementById("add-checklist-form")
-  console.log(checkList)
 
   const submitForm = (event) => {
     event.preventDefault()
@@ -123,10 +122,7 @@ const addChecklistHtml = (modal, dataset, project) => {
     if (checklistEntryText != "") {
       const Entry = { text: `${checklistEntryText}`, checked: false }
       const newEntry = newCheckListEntry(Entry)
-      console.log(checkList.readCheckList())
       checkList.addToCheckList(newEntry)
-      console.log(checkList.readCheckListEntries())
-      console.log(toDo.getCheckList())
     }
 
     initializeProjectPage(project)
@@ -220,7 +216,6 @@ const editChecklistHtml = (modal, dataset, project) => {
   // Change this to inputField.placeholder if you want the
   // old text to be visible, but not "editable"
   inputField.value = placeholderText
-  console.log(checkListEntry.getText())
 
   const submitForm = (event) => {
     event.preventDefault()

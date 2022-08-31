@@ -33,6 +33,8 @@ const refreshProjectCards = (projectList) => {
 
   projectCardListeners(projectList)
 
+  toggleClassQueryAll(".edit-project", "hide-div")
+  toggleClassQueryAll(".delete-project", "hide-div")
   // Event listener for starting to delete projects
   const startDeleteProject = document.querySelector(".start-delete-project")
   startDeleteProject.addEventListener("click", startDeleteClicked)
@@ -70,6 +72,8 @@ const refreshProjectCards = (projectList) => {
 
 const startDeleteClicked = () => {
   toggleClassQueryAll(".project-card", "project-card-shake")
+  toggleClassQueryAll(".edit-project", "hide-div")
+  toggleClassQueryAll(".delete-project", "hide-div")
 }
 
 const addProjectHtml = (modal, projectList) => {
@@ -106,6 +110,14 @@ const editProjectHtml = (modal, project, projectList) => {
 
   const projectForm = document.getElementById("edit-project-form")
 
+  const oldTitle = `${project.getTitle()}`
+  const oldDescription = `${project.getDescription()}`
+
+  const inputTitle = document.getElementById("edit-project-title")
+  const inputDescription = document.getElementById("edit-project-description")
+  inputTitle.value = oldTitle
+  inputDescription.value = oldDescription
+
   const submitForm = (event) => {
     event.preventDefault()
     const formData = new FormData(projectForm)
@@ -120,7 +132,6 @@ const editProjectHtml = (modal, project, projectList) => {
 
     project.updateProject(projectTitle, projectDescription)
 
-    console.log(projectList)
     refreshProjectCards(projectList)
     refreshProjectTabs(projectList)
     projectForm.reset()
@@ -191,6 +202,7 @@ const initializeProjectPage = (project) => {
   toggleClassQuery(".project-card", "expand-project")
   hideDivQuery(".add-project")
   hideDivQueryAll(".delete-project")
+  hideDivQueryAll(".start-delete-project")
   hideDivQueryAll(".edit-project")
   showDivQuery(".add-todo")
   showDivQueryAll(".add-checklist")
@@ -202,6 +214,9 @@ const initializeProjectPage = (project) => {
   showDivQuery(".previous")
   document.querySelector(".project-card").style.cursor = "unset"
   toggleClassQueryAll(".checklist-entry", "checklist-entry-inside")
+  toggleClassQueryAll(".project-card", "project-card-outside")
+  
+  toggleClassQueryAll(".project-card", "project-card-inside")
 
   toggleClassQueryAll(".checklist-circle", "circle-inside")
   toggleClassQueryAll(".to-do-circle", "circle-inside")
@@ -224,7 +239,7 @@ const appendProjectCard = (project, attachListeners) => {
     /*html*/
     `
       <div class="project-card-container">
-        <div data-index="${project.getId()}" class="project-card">
+        <div data-index="${project.getId()}" class="project-card project-card-outside">
           <div class="color-bar"></div>
           <div class="project-card-text">
             <p class="project-title">${project.getTitle()}</p>
@@ -240,10 +255,10 @@ const appendProjectCard = (project, attachListeners) => {
           
         </div>
         <div data-projectid="${project.getId()}" class="delete-project">
-          <img src="./images/remove.svg" class="delete-project-icon" />
+          <img src="./images/remove-white.svg" class="delete-project-icon" />
         </div>
         <div data-projectid="${project.getId()}" class="edit-project">
-          <img src="./images/pencil.svg" class="edit-project-icon" />
+          <img src="./images/pencil-white.svg" class="edit-project-icon" />
         </div>
       </div>
       `
@@ -278,6 +293,9 @@ const previousButtonClicked = (project) => {
 
   // For UI, show/hide some buttons/divs
   showDivQuery(".add-project")
+
+  showDivQuery(".start-delete-project")
+
   changeTextContent(".docket-title", "Docket")
   hideDivQuery(".previous")
 

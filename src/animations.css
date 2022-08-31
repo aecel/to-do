@@ -1,0 +1,114 @@
+.edit-project:hover,
+.delete-project:hover,
+.circle-inside:hover,
+.previous:hover,
+.start-delete-project:hover,
+.add-todo:hover,
+.add-project:hover,
+.delete-checklist:hover,
+.edit-checklist:hover,
+.add-checklist:hover,
+.delete-todo:hover,
+.edit-todo:hover {
+  animation-name: enlarge-circle;
+  animation-duration: 150ms;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+
+@keyframes enlarge-circle {
+  from {
+    scale: 0.8;
+  }
+  to {
+    scale: 1.2;
+  }
+}
+
+.project-card-outside:hover {
+  animation-name: enlarge-card;
+  animation-duration: 150ms;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
+}
+
+@keyframes enlarge-card {
+  from {
+    scale: 0.99;
+  }
+  to {
+    scale: 1.02;
+  }
+}
+
+/* .project-card-inside {
+  animation-name: show-card;
+  animation-duration: 200ms;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes show-card {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%x;
+  }
+} */
+
+.project-tab:hover {
+  animation-name: shorten-width;
+  animation-duration: 200ms;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
+}
+
+@keyframes shorten-width {
+  from {
+    margin-left: 0px;
+    width: 105px;
+  }
+  to {
+    margin-left: 20px;
+    width: 85.5px;
+  }
+}
+
+.project-card-shake {
+  animation-name: shakeProjectCard;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-duration: 100ms;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes shakeProjectCard {
+  from {
+    transform: rotate(5 deg);
+  }
+  to {
+    transform: rotate(-2deg);
+  }
+}
+
+.edit-project,
+.delete-project {
+  animation-name: popUp;
+  animation-duration: 200ms;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in;
+}
+
+@keyframes popUp {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}

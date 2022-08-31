@@ -30,7 +30,6 @@ const projectTabListeners = (projectList) => {
       projectTab.classList.add("chosen-tab")
 
       if (projectTab.id == "docket-tab") {
-        console.log("docket-tab")
         previousButtonClicked(projectList.readProjectList()[0])
       } else {
         const projectId = projectTab.dataset.index

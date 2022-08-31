@@ -13,12 +13,10 @@ const toDoCircleListener = (project) => {
 
 const toDoCircleClicked = (circle, project) => {
   const toDoId = circle.dataset.todoid
-  console.log("to-do id: ", toDoId)
   const toDo = project.getToDoById(toDoId)
   // [toDoId]
   // const toToggle = toDo.gettoDo().readtoDo()[circleIndex]
   toDo.toggleChecked()
-  console.log(toDo.getChecked())
 
   circle.classList.toggle("checked-circle")
   if (circle.textContent == "") {
@@ -66,6 +64,7 @@ const getToDoHTML = (project) => {
           <div class="to-do-entry">
             <div data-todoid="${toDoId}" class="to-do-circle ${checkClass}">${checkMark}</div>
             <div data-todoid="${toDoId}" class="to-do-text ${italic}">${toDo.getTitle()}</div>
+            ${addChecklist}
             <div data-todoid="${toDoId}" class="edit-todo">
               <img src="./images/pencil.svg" class="edit-todo-icon" />
             </div>
@@ -75,7 +74,7 @@ const getToDoHTML = (project) => {
           </div>
           ${getChecklistHTML(toDo)}
     
-          ${addChecklist}
+          
         </div>
           `
   }
