@@ -1,6 +1,6 @@
 import { deleteItem, returnExisting } from "./array.js"
 
-const newProject = (title, description) => {
+const newProject = ({ title = "", description = "" }) => {
   const project = []
 
   let id = null
@@ -49,6 +49,9 @@ const newProject = (title, description) => {
   const getDescription = () => returnExisting(description)
   const getId = () => id
   const getProjectList = () => projectList
+  const getProjectProperties = () => {
+    return { title: title, description: description }
+  }
 
   Object.assign(myself, {
     createToDo,
@@ -62,6 +65,7 @@ const newProject = (title, description) => {
     getProjectList,
     setProjectList,
     getToDoById,
+    getProjectProperties,
   })
 
   return myself

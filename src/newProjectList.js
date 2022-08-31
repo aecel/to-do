@@ -28,11 +28,14 @@ const newProjectList = () => {
     deleteItem(projects, project)
   }
 
+  const getNextId = () => nextProjectId
+
   Object.assign(myself, {
     createProject,
     readProjectList,
     getProjectById,
     deleteProject,
+    getNextId,
   })
 
   return myself

@@ -91,6 +91,8 @@ main {
   position: relative;
 }
 
+.save-data,
+.load-data,
 .start-delete-project,
 .delete-checklist,
 .edit-checklist,
@@ -120,6 +122,23 @@ main {
   right: 30px;
   bottom: 120px;
 }
+
+.save-data {
+  background-color: rgb(146, 94, 94);
+  height: 30px;
+  width: 30px;
+  right: 30px;
+  bottom: 250px;
+}
+
+.load-data {
+  background-color: rgb(94, 146, 127);
+  height: 30px;
+  width: 30px;
+  right: 30px;
+  bottom: 180px;
+}
+
 
 .delete-checklist,
 .edit-checklist,

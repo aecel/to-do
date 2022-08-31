@@ -18,6 +18,11 @@ import { toDoCircleListener, getToDoHTML } from "./toDo.js"
 import addModalListeners from "./addModalListeners.js"
 import { refreshProjectTabs } from "./projectTabs.js"
 import newProject from "./newProject.js"
+import {
+  getProjectListData,
+  storeProjectListData,
+  getFromLocalStorage,
+} from "./storage.js"
 
 const addProjectModalListeners = () => {}
 
@@ -35,6 +40,7 @@ const refreshProjectCards = (projectList) => {
 
   toggleClassQueryAll(".edit-project", "hide-div")
   toggleClassQueryAll(".delete-project", "hide-div")
+
   // Event listener for starting to delete projects
   const startDeleteProject = document.querySelector(".start-delete-project")
   startDeleteProject.addEventListener("click", startDeleteClicked)
@@ -71,6 +77,7 @@ const refreshProjectCards = (projectList) => {
 }
 
 const startDeleteClicked = () => {
+  console.log("start delete clicked")
   toggleClassQueryAll(".project-card", "project-card-shake")
   toggleClassQueryAll(".edit-project", "hide-div")
   toggleClassQueryAll(".delete-project", "hide-div")
@@ -89,7 +96,11 @@ const addProjectHtml = (modal, projectList) => {
     const projectDescription = formData.get("add-project-description")
 
     if (projectTitle != "") {
-      const addThisProject = newProject(projectTitle, projectDescription)
+      const addThisProject = newProject({
+        title: projectTitle,
+        description: projectDescription,
+      })
+      console.log("adding project to ", projectList.readProjectList())
       projectList.createProject(addThisProject)
     }
 
@@ -129,6 +140,7 @@ const editProjectHtml = (modal, project, projectList) => {
     //   const editThisProject = newProject(projectTitle, projectDescription)
     //   projectList.createProject(editThisProject)
     // }
+    console.log("updating projectlist ", projectList.readProjectList())
 
     project.updateProject(projectTitle, projectDescription)
 
@@ -203,6 +215,8 @@ const initializeProjectPage = (project) => {
   hideDivQuery(".add-project")
   hideDivQueryAll(".delete-project")
   hideDivQueryAll(".start-delete-project")
+  hideDivQueryAll(".save-data")
+  hideDivQueryAll(".load-data")
   hideDivQueryAll(".edit-project")
   showDivQuery(".add-todo")
   showDivQueryAll(".add-checklist")
@@ -215,7 +229,7 @@ const initializeProjectPage = (project) => {
   document.querySelector(".project-card").style.cursor = "unset"
   toggleClassQueryAll(".checklist-entry", "checklist-entry-inside")
   toggleClassQueryAll(".project-card", "project-card-outside")
-  
+
   toggleClassQueryAll(".project-card", "project-card-inside")
 
   toggleClassQueryAll(".checklist-circle", "circle-inside")
@@ -295,6 +309,8 @@ const previousButtonClicked = (project) => {
   showDivQuery(".add-project")
 
   showDivQuery(".start-delete-project")
+  showDivQuery(".save-data")
+  showDivQuery(".load-data")
 
   changeTextContent(".docket-title", "Docket")
   hideDivQuery(".previous")

@@ -20,6 +20,17 @@ const newToDo = ({
   const getNotes = () => returnExisting(notes, "")
   const getCheckList = () => returnExisting(checkList, false)
   const getChecked = () => returnExisting(checked, false)
+  const getToDoProperties = () => {
+    return {
+      title: title,
+      description: description,
+      dueDate: dueDate,
+      priority: priority,
+      notes: notes,
+      checkList: checkList,
+      checked: checked,
+    }
+  }
 
   const setProject = (value) => {
     project = value
@@ -66,6 +77,7 @@ const newToDo = ({
     setId,
     setProject,
     getProject,
+    getToDoProperties,
   }
 }
 
