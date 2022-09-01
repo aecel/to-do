@@ -54,7 +54,7 @@ const storeProjectListData = (myDocket) => {
   storeToLocalStorage("projectData", projectData)
   storeToLocalStorage("toDoData", toDoData)
   storeToLocalStorage("checkListData", checkListData)
-  console.log("Saved to local storage")
+  alert("Saved to local storage")
 }
 
 // Retrieving data from local storage
@@ -99,6 +99,7 @@ const getProjectListData = () => {
     }
 
     return myDocket
+    
   } else {
     console.log("Local storage data does not exist")
     return createTestDocket()

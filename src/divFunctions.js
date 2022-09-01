@@ -35,6 +35,10 @@ const hideDiv = (div) => {
   div.style.display = "none"
 }
 
+const showDiv = (div) => {
+  div.style.display = "flex"
+}
+
 const showDivQuery = (queryOfDiv, disp) => {
   const div = document.querySelector(queryOfDiv)
   if (disp) {
@@ -74,6 +78,7 @@ export {
   hideDiv,
   hideDivQuery,
   hideDivQueryAll,
+  showDiv,
   showDivQuery,
   showDivQueryAll,
   changeTextContent,

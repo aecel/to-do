@@ -75,7 +75,7 @@ const addToDoHtml = (modal, dataset, project) => {
     const toDoTitle = formData.get("add-todo-title")
     const toDoDescription = formData.get("add-todo-description")
     const toDoDueDate = formData.get("add-todo-duedate")
-    const toDoPriority = formData.get("add-todo-priority")
+    const toDoPriority = formData.get("add-todo-priority-radio")
     const toDoNotes = formData.get("add-todo-notes")
 
     if (toDoTitle != "") {
@@ -163,13 +163,19 @@ const editToDoHtml = (modal, dataset, project) => {
   const inputTitle = document.getElementById("edit-todo-title")
   const inputDescription = document.getElementById("edit-todo-description")
   const inputDueDate = document.getElementById("edit-todo-duedate")
-  const inputPriority = document.getElementById("edit-todo-priority")
+  const inputPriorities = document.getElementsByName("edit-todo-priority-radio")
   const inputNotes = document.getElementById("edit-todo-notes")
 
   inputTitle.value = `${toDo.getTitle()}`
   inputDescription.value = `${toDo.getDescription()}`
   inputDueDate.value = `${toDo.getDueDate()}`
-  inputPriority.value = `${toDo.getPriority()}`
+
+  for (const input of inputPriorities) {
+    if (input.value==toDo.getPriority()) {
+      input.checked = true
+    }
+  }
+
   inputNotes.value = `${toDo.getNotes()}`
 
   const submitForm = (event) => {
@@ -180,7 +186,7 @@ const editToDoHtml = (modal, dataset, project) => {
     const toDoTitle = formData.get("edit-todo-title")
     const toDoDescription = formData.get("edit-todo-description")
     const toDoDueDate = formData.get("edit-todo-duedate")
-    const toDoPriority = formData.get("edit-todo-priority")
+    const toDoPriority = formData.get("edit-todo-priority-radio")
     const toDoNotes = formData.get("edit-todo-notes")
 
     toDo.updateToDo({

@@ -39,10 +39,13 @@ const loadData = document.querySelector(".load-data")
 loadData.addEventListener("click", () => {
   myDocket = loadDataClicked()
   console.log("my docket", myDocket && myDocket.readProjectList())
+  
+  alert("Loaded data from local storage")
 })
 
 const saveDataClicked = (myDocket) => {
   storeProjectListData(myDocket)
+  
 }
 
 const loadDataClicked = () => {

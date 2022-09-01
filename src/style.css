@@ -45,7 +45,8 @@ a {
 }
 
 .project-tab {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  /* font-weight: bold; */
   display: flex;
   padding: 20px;
   align-items: center;
@@ -64,6 +65,7 @@ a {
 
 .chosen-tab {
   background-color: var(--theme-color);
+  font-weight: bold;
 }
 
 /* .project-tab:last-child {
@@ -109,34 +111,38 @@ main {
   justify-content: center;
   align-items: center;
   box-shadow: var(--shadow);
-  bottom: 60px;
+  bottom: 75px;
   right: 60px;
   cursor: pointer;
   position: fixed;
 }
 
 .start-delete-project {
-  background-color: rgb(91, 32, 32);
+  background-color: #6D3737;
   height: 30px;
   width: 30px;
-  right: 30px;
+  right: 35px;
   bottom: 120px;
 }
 
 .save-data {
-  background-color: rgb(146, 94, 94);
+  background-color: rgb(87, 150, 84);
   height: 30px;
   width: 30px;
-  right: 30px;
-  bottom: 250px;
+  right: 20px;
+  bottom: 80px;
 }
 
 .load-data {
-  background-color: rgb(94, 146, 127);
+  background-color: rgb(94, 94, 94);
   height: 30px;
   width: 30px;
-  right: 30px;
-  bottom: 180px;
+  right: 35px;
+  bottom: 40px;
+}
+
+.load-data-icon {
+  height: 28px;
 }
 
 .add-project,
@@ -163,6 +169,15 @@ main {
   margin-bottom: 5px;
   padding: 0;
   box-shadow: none;
+}
+
+.to-do-text,
+.checklist-text {
+  display: flex;
+  align-items: center;
+  height: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .add-checklist {
@@ -195,8 +210,13 @@ main {
   height: 15px;
 }
 
+.add-project {
+  height: 40px;
+  width: 40px;
+}
+
 .add-project-icon {
-  height: 27px;
+  height: 20px;
 }
 
 .delete-checklist:hover,
@@ -207,14 +227,13 @@ main {
   background-color: gray;
 }
 
-.add-todo:hover,
-.add-project:hover {
+.add-todo:hover {
   background-color: rgb(142, 83, 184);
 }
 
-.start-delete-project:hover {
+/* .start-delete-project:hover {
   background-color: rgb(109, 55, 55);
-}
+} */
 
 .delete-checklist:active,
 .edit-checklist:active,
@@ -224,12 +243,11 @@ main {
   background-color: rgb(177, 177, 177);
 }
 
-.start-delete-project:active {
+/* .start-delete-project:active {
   background-color: rgb(219, 127, 127);
-}
+} */
 
-.add-todo:active,
-.add-project:active {
+.add-todo:active {
   background-color: rgb(181, 130, 217);
 }
 
@@ -278,7 +296,7 @@ main {
   align-items: center;
   justify-content: center;
   gap: 36px;
-  margin: 26px;
+  margin: 0px;
   margin-top: 0px;
   flex-wrap: wrap;
   padding: 26px;
@@ -376,18 +394,19 @@ main {
   font-size: 0.9rem;
   font-weight: bold;
   margin-top: 0;
+  margin-bottom: 10px;
 }
 
 .project-desc {
   font-size: 0.8rem;
   color: rgb(188, 188, 188);
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .line-dash {
   border-top: dashed rgb(110, 110, 110) 2px;
   width: inherit;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 .checklist-entry,

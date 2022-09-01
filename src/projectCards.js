@@ -4,6 +4,7 @@ import {
   toggleClassQueryAll,
   hideDiv,
   hideDivQuery,
+  showDiv,
   showDivQuery,
   showDivQueryAll,
   changeTextContent,
@@ -219,11 +220,11 @@ const initializeProjectPage = (project) => {
   hideDivQueryAll(".load-data")
   hideDivQueryAll(".edit-project")
   showDivQuery(".add-todo")
-  showDivQueryAll(".add-checklist")
-  showDivQueryAll(".edit-todo")
-  showDivQueryAll(".delete-todo")
-  showDivQueryAll(".edit-checklist")
-  showDivQueryAll(".delete-checklist")
+  // showDivQueryAll(".add-checklist")
+  // showDivQueryAll(".edit-todo")
+  // showDivQueryAll(".delete-todo")
+  // showDivQueryAll(".edit-checklist")
+  // showDivQueryAll(".delete-checklist")
   changeTextContent(".docket-title", project.getTitle())
   showDivQuery(".previous")
   document.querySelector(".project-card").style.cursor = "unset"
@@ -235,6 +236,60 @@ const initializeProjectPage = (project) => {
   toggleClassQueryAll(".checklist-circle", "circle-inside")
   toggleClassQueryAll(".to-do-circle", "circle-inside")
   toggleClassQueryAll(".to-do-entry", "to-do-entry-inside")
+
+  // For showing to-do icons while hovering
+  const hoverToDo = (toDo) => {
+    const toDoIcons = toDo.getElementsByClassName("to-do-icon")
+    for (const toDoIcon of toDoIcons) {
+      console.log(`${toDoIcon.dataset.todoid}`)
+      showDiv(toDoIcon)
+    }
+  }
+
+  const unhoverToDo = (toDo) => {
+    const toDoIcons = toDo.getElementsByClassName("to-do-icon")
+    for (const toDoIcon of toDoIcons) {
+      console.log(`${toDoIcon.dataset.todoid}`)
+      hideDiv(toDoIcon)
+    }
+  }
+
+  const toDos = document.getElementsByClassName("to-do-entry")
+  for (const toDo of toDos) {
+    toDo.addEventListener("mouseover", () => {
+      hoverToDo(toDo)
+    })
+    toDo.addEventListener("mouseleave", () => {
+      unhoverToDo(toDo)
+    })
+  }
+
+  // For showing checklist icons while hovering
+  const hoverChecklist = (checklist) => {
+    const checklistIcons = checklist.getElementsByClassName("checklist-icon")
+    for (const checklistIcon of checklistIcons) {
+      console.log(`${checklistIcon.dataset.checkid}`)
+      showDiv(checklistIcon)
+    }
+  }
+
+  const unhoverChecklist = (checklist) => {
+    const checklistIcons = checklist.getElementsByClassName("checklist-icon")
+    for (const checklistIcon of checklistIcons) {
+      console.log(`${checklistIcon.dataset.checkid}`)
+      hideDiv(checklistIcon)
+    }
+  }
+
+  const checklists = document.getElementsByClassName("checklist-entry")
+  for (const checklist of checklists) {
+    checklist.addEventListener("mouseover", () => {
+      hoverChecklist(checklist)
+    })
+    checklist.addEventListener("mouseleave", () => {
+      unhoverChecklist(checklist)
+    })
+  }
 
   // For choosing the tab to highlight
   const projectTabList = document.getElementsByClassName("project-tab")
@@ -256,8 +311,8 @@ const appendProjectCard = (project, attachListeners) => {
         <div data-index="${project.getId()}" class="project-card project-card-outside">
           <div class="color-bar"></div>
           <div class="project-card-text">
-            <p class="project-title">${project.getTitle()}</p>
-            <p class="project-desc">${project.getDescription()}</p>
+            <div class="project-title">${project.getTitle()}</div>
+            <div class="project-desc">${project.getDescription()}</div>
             <div class="line-dash"></div>
             
             ${getToDoHTML(project)}
