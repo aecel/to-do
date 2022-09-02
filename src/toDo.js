@@ -1,3 +1,4 @@
+import { formatDistance, subDays, parseISO, formatDistanceToNow } from 'date-fns'
 import { getChecklistHTML } from "./checklist.js"
 
 // --- Event listener for to-do-circles
@@ -39,6 +40,7 @@ const getToDoHTML = (project) => {
     let checkClass = ""
     let italic = ""
     let addChecklist = ""
+    let dueDate = ""
 
     if (toDo.getChecked()) {
       checkMark = "✓"
@@ -46,12 +48,24 @@ const getToDoHTML = (project) => {
       italic = "italic-text"
     }
 
+    if (toDo.getDueDate()!="") {
+      const parsedDate = parseISO(toDo.getDueDate())
+      const formattedDate = formatDistanceToNow(parsedDate)
+
+      dueDate = /* html */
+      `
+      <div title="Due date" data-todoid="${toDoId}" class="to-do-icon to-do-due-date">
+        <div class="to-do-icon">${formattedDate}</div>
+      </div>
+      `
+    }
+
     // if (toDo.getCheckList()) 
     if (true) {
       addChecklist =
         /* html */
         `
-            <div data-todoid="${toDoId}" class="to-do-icon add-checklist">
+            <div title="Add a checklist item under this to-do" data-todoid="${toDoId}" class="to-do-icon add-checklist">
               <img src="./images/plus-checklist.svg" class="add-checklist-icon" />
             </div>
             `
@@ -64,11 +78,16 @@ const getToDoHTML = (project) => {
           <div data-todoid="${toDoId}" class="to-do-entry">
             <div data-todoid="${toDoId}" class="to-do-circle ${checkClass}">${checkMark}</div>
             <div data-todoid="${toDoId}" class="to-do-text ${italic}">${toDo.getTitle()}</div>
+            
+            <div title="${toDo.getPriority()} priority" data-todoid="${toDoId}" class="to-do-icon to-do-priority">
+              <img class="priority-icon" src="./images/${toDo.getPriority()}.svg"/>
+            </div>
+            ${dueDate}
             ${addChecklist}
-            <div data-todoid="${toDoId}" class="to-do-icon edit-todo">
+            <div title="Edit this to-do" data-todoid="${toDoId}" class="to-do-icon edit-todo">
               <img src="./images/pencil.svg" class="edit-todo-icon" />
             </div>
-            <div data-todoid="${toDoId}" class="to-do-icon delete-todo">
+            <div title="Delete this to-do" data-todoid="${toDoId}" class="to-do-icon delete-todo">
               <img src="./images/remove.svg" class="delete-todo-icon" />
             </div>
           </div>

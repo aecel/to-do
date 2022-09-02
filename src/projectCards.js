@@ -317,16 +317,16 @@ const appendProjectCard = (project, attachListeners) => {
             
             ${getToDoHTML(project)}
     
-            <div class="add-todo">
+            <div title="Add a to-do" class="add-todo">
               <img src="./images/plus.svg" class="add-todo-icon" />
             </div>
           </div>
           
         </div>
-        <div data-projectid="${project.getId()}" class="delete-project">
+        <div title="Delete this project" data-projectid="${project.getId()}" class="delete-project">
           <img src="./images/remove-white.svg" class="delete-project-icon" />
         </div>
-        <div data-projectid="${project.getId()}" class="edit-project">
+        <div title="Edit this project" data-projectid="${project.getId()}" class="edit-project">
           <img src="./images/pencil-white.svg" class="edit-project-icon" />
         </div>
       </div>

@@ -61,10 +61,10 @@ const getChecklistHTML = (toDo) => {
         <div data-checkid="${checkId}" class="checklist-entry">
           <div data-todoid="${toDoId}" data-checkid="${checkId}" class="checklist-circle ${checkClass}">${checkMark}</div>
           <div class="checklist-text ${italic}">${entry.getText()}</div>
-          <div data-todoid="${toDoId}"  data-checkid="${checkId}" class="checklist-icon edit-checklist">
+          <div title="Edit this item" data-todoid="${toDoId}"  data-checkid="${checkId}" class="checklist-icon edit-checklist">
             <img src="./images/pencil.svg" class="edit-checklist-icon" />
           </div>
-          <div data-todoid="${toDoId}"  data-checkid="${checkId}" class="checklist-icon delete-checklist">
+          <div title="Delete this item" data-todoid="${toDoId}"  data-checkid="${checkId}" class="checklist-icon delete-checklist">
             <img src="./images/remove.svg" class="delete-checklist-icon" />
           </div>
         </div>
