@@ -7,12 +7,10 @@ import { refreshProjectCards } from "./projectCards.js"
 import { refreshProjectTabs } from "./projectTabs.js"
 
 import {
-  storeToLocalStorage,
   getFromLocalStorage,
   storeProjectListData,
   getProjectListData,
 } from "./storage.js"
-import { createTestDocket } from "./testDocket"
 
 // Order of objects from biggest to smallest
 // Project List > Project > To-Do > Checklist > Checklist Entry
@@ -27,6 +25,10 @@ let myDocket = getProjectListData()
 refreshProjectCards(myDocket)
 refreshProjectTabs(myDocket)
 
+const saveDataClicked = (projectList) => {
+  storeProjectListData(projectList)
+}
+
 // Event listener for saving data
 const saveData = document.querySelector(".save-data")
 saveData.addEventListener("click", () => {
@@ -34,25 +36,11 @@ saveData.addEventListener("click", () => {
   saveDataClicked(myDocket)
 })
 
-// Event listener for loading data
-const loadData = document.querySelector(".load-data")
-loadData.addEventListener("click", () => {
-  myDocket = loadDataClicked()
-  console.log("my docket", myDocket && myDocket.readProjectList())
-  
-  alert("Loaded data from local storage")
-})
-
-const saveDataClicked = (myDocket) => {
-  storeProjectListData(myDocket)
-  
-}
-
 const loadDataClicked = () => {
   if (
-    getFromLocalStorage("projectData") &&
-    getFromLocalStorage("toDoData") &&
-    getFromLocalStorage("checkListData")
+    getFromLocalStorage("projectData")
+    && getFromLocalStorage("toDoData")
+    && getFromLocalStorage("checkListData")
   ) {
     const newDocket = getProjectListData()
     console.log("Loaded projectlist", newDocket.readProjectList())
@@ -60,8 +48,18 @@ const loadDataClicked = () => {
     refreshProjectTabs(newDocket)
     return newDocket
   }
+
+  return null
 }
 
+// Event listener for loading data
+const loadData = document.querySelector(".load-data")
+loadData.addEventListener("click", () => {
+  myDocket = loadDataClicked()
+  console.log("my docket", myDocket && myDocket.readProjectList())
+
+  alert("Loaded data from local storage")
+})
 
 // --- Test code again --- //
 

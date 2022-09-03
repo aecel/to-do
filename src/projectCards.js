@@ -51,8 +51,7 @@ const refreshProjectCards = (projectList) => {
     ".delete-project-modal",
     ".delete-project",
     ".close-delete-project-modal",
-    (modal, dataset) =>
-      deleteProjectHtml(modal, projectList.getProjectById(dataset.projectid))
+    (modal, dataset) => deleteProjectHtml(modal, projectList.getProjectById(dataset.projectid)),
   )
 
   // Modal listener for editing projects
@@ -60,12 +59,11 @@ const refreshProjectCards = (projectList) => {
     ".edit-project-modal",
     ".edit-project",
     ".close-edit-project-modal",
-    (modal, dataset) =>
-      editProjectHtml(
-        modal,
-        projectList.getProjectById(dataset.projectid),
-        projectList
-      )
+    (modal, dataset) => editProjectHtml(
+      modal,
+      projectList.getProjectById(dataset.projectid),
+      projectList,
+    ),
   )
 
   // Modal listener for adding projects
@@ -73,7 +71,7 @@ const refreshProjectCards = (projectList) => {
     ".add-project-modal",
     ".add-project",
     ".close-add-project-modal",
-    (modal, dataset) => addProjectHtml(modal, projectList)
+    (modal, dataset) => addProjectHtml(modal, projectList),
   )
 }
 
@@ -298,14 +296,14 @@ const initializeProjectPage = (project) => {
   }
 
   const chosenTab = document.querySelector(
-    `.project-tab[data-index="${projectId}"]`
+    `.project-tab[data-index="${projectId}"]`,
   )
   chosenTab.classList.add("chosen-tab")
 }
 
 const appendProjectCard = (project, attachListeners) => {
   const html =
-    /*html*/
+    /* html */
     `
       <div class="project-card-container">
         <div data-index="${project.getId()}" class="project-card project-card-outside">

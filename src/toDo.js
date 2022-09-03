@@ -1,4 +1,9 @@
-import { formatDistance, subDays, parseISO, formatDistanceToNow } from 'date-fns'
+import {
+  formatDistance,
+  subDays,
+  parseISO,
+  formatDistanceToNow,
+} from "date-fns"
 import { getChecklistHTML } from "./checklist.js"
 
 // --- Event listener for to-do-circles
@@ -48,31 +53,32 @@ const getToDoHTML = (project) => {
       italic = "italic-text"
     }
 
-    if (toDo.getDueDate()!="") {
+    if (toDo.getDueDate() != "") {
       const parsedDate = parseISO(toDo.getDueDate())
       const formattedDate = formatDistanceToNow(parsedDate)
 
-      dueDate = /* html */
-      `
+      dueDate =
+        /* html */
+        `
       <div title="Due date" data-todoid="${toDoId}" class="to-do-icon to-do-due-date">
         <div class="to-do-icon">${formattedDate}</div>
       </div>
       `
     }
 
-    // if (toDo.getCheckList()) 
-    if (true) {
-      addChecklist =
-        /* html */
-        `
+    // if (toDo.getCheckList())
+    // if (true) {
+    addChecklist =
+      /* html */
+      `
             <div title="Add a checklist item under this to-do" data-todoid="${toDoId}" class="to-do-icon add-checklist">
               <img src="./images/plus-checklist.svg" class="add-checklist-icon" />
             </div>
             `
-    }
+    // }
 
     returnHtml +=
-      /*html*/
+      /* html */
       `
         <div data-todoid="${toDoId}" class="to-do-container">
           <div data-todoid="${toDoId}" class="to-do-entry">

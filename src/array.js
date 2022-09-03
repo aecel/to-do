@@ -8,11 +8,10 @@ const deleteItem = (array, item) => {
 const returnExisting = (item, defaultItem) => {
   if (item !== null && item !== undefined) {
     return item
-  } else if (defaultItem !== null && defaultItem !== undefined) {
+  } if (defaultItem !== null && defaultItem !== undefined) {
     return defaultItem
-  } else {
-    return ""
   }
+  return ""
 }
 
 export { deleteItem, returnExisting }

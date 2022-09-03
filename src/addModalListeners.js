@@ -3,68 +3,12 @@ import newCheckList from "./newCheckList.js"
 import newCheckListEntry from "./newCheckListEntry.js"
 import { initializeProjectPage } from "./projectCards.js"
 import newToDo from "./newToDo.js"
-import { removeAllEventListenersAndReturnClone } from "./util.js"
 
-// Add modal listeners for adding to-dos and adding checklists
-
-const addModalListeners = (project) => {
-  modalFunctions(
-    ".add-todo-modal",
-    ".add-todo",
-    ".close-add-todo-modal",
-    (modal, dataset) => addToDoHtml(modal, dataset, project)
-  )
-
-  modalFunctions(
-    ".add-checklist-modal",
-    ".add-checklist",
-    ".close-add-checklist-modal",
-    (modal, dataset) => addChecklistHtml(modal, dataset, project)
-  )
-
-  modalFunctions(
-    ".view-todo-modal",
-    ".to-do-text",
-    ".close-view-todo-modal",
-    (modal, dataset) => viewToDoHtml(modal, dataset, project)
-  )
-
-  modalFunctions(
-    ".edit-todo-modal",
-    ".edit-todo",
-    ".close-edit-todo-modal",
-    (modal, dataset) => editToDoHtml(modal, dataset, project)
-  )
-
-  modalFunctions(
-    ".edit-checklist-modal",
-    ".edit-checklist",
-    ".close-edit-checklist-modal",
-    (modal, dataset) => editChecklistHtml(modal, dataset, project)
-  )
-
-  modalFunctions(
-    ".delete-todo-modal",
-    ".delete-todo",
-    ".close-delete-todo-modal",
-    (modal, dataset) => deleteToDoHtml(modal, dataset, project)
-  )
-
-  modalFunctions(
-    ".delete-checklist-modal",
-    ".delete-checklist",
-    ".close-delete-checklist-modal",
-    (modal, dataset) => deleteChecklistHtml(modal, dataset, project)
-  )
-}
 const closeForm = (modal) => {
   modal.style.display = "none"
 }
 
 const addToDoHtml = (modal, dataset, project) => {
-  const modalContent = modal.getElementsByClassName("modal-text")[0]
-  const toDo = project.getToDoById(dataset.todoid)
-
   const todoForm = document.getElementById("add-todo-form")
 
   const submitForm = (event) => {
@@ -102,8 +46,6 @@ const addToDoHtml = (modal, dataset, project) => {
 }
 
 const addChecklistHtml = (modal, dataset, project) => {
-  const modalContent = modal.getElementsByClassName("modal-text")[0]
-
   const toDo = project.getToDoById(dataset.todoid)
   let checkList = toDo.getCheckList()
   if (checkList == false) {
@@ -155,7 +97,6 @@ const viewToDoHtml = (modal, dataset, project) => {
 }
 
 const editToDoHtml = (modal, dataset, project) => {
-  const modalContent = modal.getElementsByClassName("modal-text")[0]
   const toDo = project.getToDoById(dataset.todoid)
 
   const todoForm = document.getElementById("edit-todo-form")
@@ -171,7 +112,7 @@ const editToDoHtml = (modal, dataset, project) => {
   inputDueDate.value = `${toDo.getDueDate()}`
 
   for (const input of inputPriorities) {
-    if (input.value==toDo.getPriority()) {
+    if (input.value == toDo.getPriority()) {
       input.checked = true
     }
   }
@@ -209,8 +150,6 @@ const editToDoHtml = (modal, dataset, project) => {
 }
 
 const editChecklistHtml = (modal, dataset, project) => {
-  const modalContent = modal.getElementsByClassName("modal-text")[0]
-
   const toDo = project.getToDoById(dataset.todoid)
   const checkList = toDo.getCheckList()
   const checkListEntry = checkList.getChecklistById(dataset.checkid)
@@ -246,8 +185,6 @@ const editChecklistHtml = (modal, dataset, project) => {
 }
 
 const deleteToDoHtml = (modal, dataset, project) => {
-  const modalContent = modal.getElementsByClassName("modal-text")[0]
-
   const yesButton = modal.getElementsByClassName("yes-button")[0]
 
   const onYesButtonClicked = () => {
@@ -284,8 +221,6 @@ const deleteToDoHtml = (modal, dataset, project) => {
 }
 
 const deleteChecklistHtml = (modal, dataset, project) => {
-  const modalContent = modal.getElementsByClassName("modal-text")[0]
-
   const yesButton = modal.getElementsByClassName("yes-button")[0]
 
   const onYesButtonClicked = () => {
@@ -328,6 +263,59 @@ const deleteChecklistHtml = (modal, dataset, project) => {
   }
 
   noButton.addEventListener("click", onNoButtonClicked)
+}
+
+// Add modal listeners for adding to-dos and adding checklists
+
+const addModalListeners = (project) => {
+  modalFunctions(
+    ".add-todo-modal",
+    ".add-todo",
+    ".close-add-todo-modal",
+    (modal, dataset) => addToDoHtml(modal, dataset, project),
+  )
+
+  modalFunctions(
+    ".add-checklist-modal",
+    ".add-checklist",
+    ".close-add-checklist-modal",
+    (modal, dataset) => addChecklistHtml(modal, dataset, project),
+  )
+
+  modalFunctions(
+    ".view-todo-modal",
+    ".to-do-text",
+    ".close-view-todo-modal",
+    (modal, dataset) => viewToDoHtml(modal, dataset, project),
+  )
+
+  modalFunctions(
+    ".edit-todo-modal",
+    ".edit-todo",
+    ".close-edit-todo-modal",
+    (modal, dataset) => editToDoHtml(modal, dataset, project),
+  )
+
+  modalFunctions(
+    ".edit-checklist-modal",
+    ".edit-checklist",
+    ".close-edit-checklist-modal",
+    (modal, dataset) => editChecklistHtml(modal, dataset, project),
+  )
+
+  modalFunctions(
+    ".delete-todo-modal",
+    ".delete-todo",
+    ".close-delete-todo-modal",
+    (modal, dataset) => deleteToDoHtml(modal, dataset, project),
+  )
+
+  modalFunctions(
+    ".delete-checklist-modal",
+    ".delete-checklist",
+    ".close-delete-checklist-modal",
+    (modal, dataset) => deleteChecklistHtml(modal, dataset, project),
+  )
 }
 
 export default addModalListeners

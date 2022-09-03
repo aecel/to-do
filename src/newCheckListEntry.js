@@ -29,9 +29,7 @@ const newCheckListEntry = ({ text = "", checked = false }) => {
     if (newChecked !== null && newChecked !== undefined) checked = newChecked
   }
 
-  const getEntryProperties = () => {
-    return { text: text, checked: checked }
-  }
+  const getEntryProperties = () => ({ text, checked })
   return {
     setId,
     getId,

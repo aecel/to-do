@@ -23,33 +23,21 @@ const getFromLocalStorage = (key) => {
     const parsedProjectList = JSON.parse(projectListStringified)
 
     return parsedProjectList
-  } else {
-    // Too bad, no localStorage for us
   }
+  // Too bad, no localStorage for us
+  return null
 }
 
 // Storing data for local storage
 const storeProjectListData = (myDocket) => {
-  const projectData = myDocket.readProjectList().map((project) => {
-    return project.getProjectProperties()
-  })
+  const projectData = myDocket.readProjectList().map((project) => project.getProjectProperties())
 
-  const toDoData = myDocket.readProjectList().map((project) => {
-    return project.readProject().map((toDo) => {
-      return toDo.getToDoProperties()
-    })
-  })
+  const toDoData = myDocket.readProjectList().map((project) => project.readProject().map((toDo) => toDo.getToDoProperties()))
 
-  const checkListData = myDocket.readProjectList().map((project) => {
-    return project.readProject().map((toDo) => {
-      return toDo
-        .getCheckList()
-        .getEntries()
-        .map((entry) => {
-          return entry.getEntryProperties()
-        })
-    })
-  })
+  const checkListData = myDocket.readProjectList().map((project) => project.readProject().map((toDo) => toDo
+    .getCheckList()
+    .getEntries()
+    .map((entry) => entry.getEntryProperties())))
 
   storeToLocalStorage("projectData", projectData)
   storeToLocalStorage("toDoData", toDoData)
@@ -87,10 +75,10 @@ const getProjectListData = () => {
         const checkListEntries = retrievedCheckListData[projIndex][toDoIndex]
         for (const entry of checkListEntries) {
           const entryObj = newCheckListEntry(entry)
-          const toDo = myDocket
+          const myToDo = myDocket
             .getProjectById(testProjIndex)
             .getToDoById(toDoIndex)
-          toDo.getCheckList().addToCheckList(entryObj)
+          myToDo.getCheckList().addToCheckList(entryObj)
         }
         toDoIndex++
       }
@@ -99,11 +87,9 @@ const getProjectListData = () => {
     }
 
     return myDocket
-    
-  } else {
-    console.log("Local storage data does not exist")
-    return createTestDocket()
   }
+  console.log("Local storage data does not exist")
+  return createTestDocket()
 }
 
 export {

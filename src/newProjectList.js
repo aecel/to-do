@@ -14,14 +14,13 @@ const newProjectList = () => {
     project.setProjectList(myself)
   }
 
-  const readProjectList = () => {
-    return projects
-  }
+  const readProjectList = () => projects
 
   const getProjectById = (projectid) => {
     for (const project of projects) {
       if (project.getId() == projectid) return project
     }
+    return null
   }
 
   const deleteProject = (project) => {

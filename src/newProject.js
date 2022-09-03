@@ -17,9 +17,7 @@ const newProject = ({ title = "", description = "" }) => {
     toDo.setProject(myself)
   }
 
-  const readProject = () => {
-    return project
-  }
+  const readProject = () => project
 
   const getToDoById = (todoid) => {
     for (const todo of project) {
@@ -49,9 +47,7 @@ const newProject = ({ title = "", description = "" }) => {
   const getDescription = () => returnExisting(description)
   const getId = () => id
   const getProjectList = () => projectList
-  const getProjectProperties = () => {
-    return { title: title, description: description }
-  }
+  const getProjectProperties = () => ({ title, description })
 
   Object.assign(myself, {
     createToDo,

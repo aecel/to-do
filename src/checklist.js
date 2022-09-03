@@ -1,15 +1,6 @@
 import newCheckList from "./newCheckList.js"
 // --- Event listener for check-circles
 
-const checkListListener = (project) => {
-  const checkListCircles = document.getElementsByClassName("checklist-circle")
-  for (const circle of checkListCircles) {
-    circle.addEventListener("click", () => {
-      checkCircleClicked(circle, project)
-    })
-  }
-}
-
 const checkCircleClicked = (circle, project) => {
   // const checkList = toDo.getCheckList().readCheckListEntries()
   const circleIndex = circle.dataset.checkid
@@ -27,6 +18,14 @@ const checkCircleClicked = (circle, project) => {
   circle.nextElementSibling.classList.toggle("italic-text")
 }
 
+const checkListListener = (project) => {
+  const checkListCircles = document.getElementsByClassName("checklist-circle")
+  for (const circle of checkListCircles) {
+    circle.addEventListener("click", () => {
+      checkCircleClicked(circle, project)
+    })
+  }
+}
 // Get HTML pattern of the checklist of a todo
 
 const getChecklistHTML = (toDo) => {
@@ -35,7 +34,7 @@ const getChecklistHTML = (toDo) => {
   if (toDo.getCheckList() === false) {
     // return html
     const myChecklist = newCheckList()
-    toDo.updateToDo({newCheckList: myChecklist})
+    toDo.updateToDo({ newCheckList: myChecklist })
   }
 
   // Check if checklist exists in the todo
@@ -55,9 +54,9 @@ const getChecklistHTML = (toDo) => {
       italic = "italic-text"
     }
 
-    html +=
-      /*html*/
-      `
+    html
+      /* html */
+      += `
         <div data-checkid="${checkId}" class="checklist-entry">
           <div data-todoid="${toDoId}" data-checkid="${checkId}" class="checklist-circle ${checkClass}">${checkMark}</div>
           <div class="checklist-text ${italic}">${entry.getText()}</div>

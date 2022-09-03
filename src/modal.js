@@ -1,8 +1,29 @@
+const cleanupHandler = (() => {
+  const cleanupCallbacksPerModal = {}
+
+  const cleanup = (modal) => {
+    const cleanupCallbacks = cleanupCallbacksPerModal[modal]
+
+    if (!cleanupCallbacks) return
+
+    for (const callback of cleanupCallbacks) callback()
+
+    cleanupCallbacksPerModal[modal] = []
+  }
+
+  const addCleanupCallback = (modal, callback) => {
+    if (!cleanupCallbacksPerModal[modal]) cleanupCallbacksPerModal[modal] = []
+    cleanupCallbacksPerModal[modal].push(callback)
+  }
+
+  return { cleanup, addCleanupCallback }
+})()
+
 const modalFunctions = (
   modalQuery,
   modalButtonQueryAll,
   closeButtonQuery,
-  onOpen
+  onOpen,
 ) => {
   cleanupHandler.cleanup(modalQuery)
 
@@ -36,30 +57,8 @@ const modalFunctions = (
 
   // When the user clicks on <closeButton> (x), close the modal
   closeButton.addEventListener("click", closeForm)
-  
+
   cleanupHandler.addCleanupCallback(modalQuery, () => closeButton.removeEventListener("click", closeForm))
 }
-
-const cleanupHandler = (() => {
-  const cleanupCallbacksPerModal = {}
-
-  const cleanup = (modal) => {
-    const cleanupCallbacks = cleanupCallbacksPerModal[modal]
-
-    if (!cleanupCallbacks) return
-
-    for (const callback of cleanupCallbacks) callback()
-
-    cleanupCallbacksPerModal[modal] = []
-  }
-
-  const addCleanupCallback = (modal, callback) => {
-    if (!cleanupCallbacksPerModal[modal]) cleanupCallbacksPerModal[modal] = []
-    cleanupCallbacksPerModal[modal].push(callback)
-  }
-
-  return { cleanup, addCleanupCallback }
-})()
-
 
 export default modalFunctions

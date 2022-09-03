@@ -22,19 +22,11 @@ const newCheckList = () => {
     return null
   }
 
-  const readCheckList = () => {
-    return checkList
-  }
+  const readCheckList = () => checkList
 
-  const readCheckListEntries = () => {
-    return checkList.map((item) => {
-      return item.getEntry()
-    })
-  }
+  const readCheckListEntries = () => checkList.map((item) => item.getEntry())
 
-  const getEntries = () => {
-    return checkList.map((item) => item)
-  }
+  const getEntries = () => checkList.map((item) => item)
   const deleteFromCheckList = (entry) => {
     deleteItem(checkList, entry)
   }
@@ -45,7 +37,7 @@ const newCheckList = () => {
     readCheckList,
     readCheckListEntries,
     deleteFromCheckList,
-    getEntries
+    getEntries,
   })
 
   return myself

@@ -2,7 +2,6 @@ import {
   initializeProjectPage,
   previousButtonClicked,
   refreshProjectCards,
-  setActiveProjectList,
 } from "./projectCards.js"
 
 import {
@@ -23,8 +22,8 @@ const projectTabListeners = (projectList) => {
   const projectTabList = document.getElementsByClassName("project-tab")
   for (const projectTab of projectTabList) {
     projectTab.addEventListener("click", () => {
-      for (const projectTab of projectTabList) {
-        projectTab.classList.remove("chosen-tab")
+      for (const myProjectTab of projectTabList) {
+        myProjectTab.classList.remove("chosen-tab")
       }
 
       projectTab.classList.add("chosen-tab")
@@ -46,7 +45,7 @@ const refreshProjectTabs = (projectList) => {
   clearChildren(projectTabs)
 
   projectTabs.innerHTML =
-    /*html*/
+    /* html */
     `
     <div id="docket-tab" class="project-tab chosen-tab">
       <div class="circle-tab">
@@ -65,7 +64,7 @@ const refreshProjectTabs = (projectList) => {
 
 const appendProjectTab = (project) => {
   const html =
-    /*html*/
+    /* html */
     `
     <div data-index="${project.getId()}" class="project-tab">
       <div class="circle-tab">
